@@ -1,0 +1,5 @@
+USER_NAME,ROLE
+dev1@cuisine.cz,ROLE_USER
+dev1@cuisine.cz,ROLE_ADMINISTRATOR
+dev2@cuisine.cz,ROLE_USER
+dev3@cuisine.cz,ROLE_USER

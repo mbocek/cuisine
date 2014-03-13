@@ -1,0 +1,99 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"  
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+			http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<!-- ================================================================= -->
+	<!-- Component definition                                              -->
+	<!-- ================================================================= -->
+	<aop:aspectj-autoproxy />
+	<context:spring-configured />
+	<context:annotation-config />
+
+	<context:component-scan base-package="org.sharetask.service" />
+
+	<context:property-placeholder location="classpath:/config.properties"/>
+	<util:properties id="applicationProps" location="classpath:application.properties"/>
+	
+	<!-- ================================================================= -->
+	<!-- Validation definition                                             -->
+	<!-- ================================================================= -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+	<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+	
+	<!-- ================================================================= -->
+	<!-- Message source definition                                         -->
+	<!-- ================================================================= -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:/i18n/messages_backend" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<!-- ================================================================= -->
+	<!-- JMX exporter                                                      -->
+	<!-- ================================================================= -->
+	<bean id="mbeanServer" class="org.springframework.jmx.support.MBeanServerFactoryBean">  
+		<property name="locateExistingServerIfPossible" value="true">  
+	</property></bean>  
+	  
+	<bean id="jmxExporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">  
+		<property name="beans">
+			<map>
+				<entry key="sharetask:type=logging,name=config" value-ref="logConfig" />
+				<entry key="sharetask:name=hibernateStatistics" value-ref="hibernateStatisticsMBean" />
+			</map>  
+		</property>  
+	</bean>  
+	  
+	<bean id="logConfig" class="org.sharetask.utility.jmx.Log4jConfigurator" />
+
+	<bean id="hibernateStatisticsMBean" class="org.hibernate.jmx.StatisticsService">
+		<property name="statisticsEnabled" value="true" />
+		<property name="sessionFactory" value="#{entityManagerFactory.sessionFactory}" />
+	</bean>
+	
+	<!-- ================================================================= -->
+	<!-- Service performance interceptor                                   -->
+	<!-- ================================================================= -->
+	<bean id="supportServiceInterceptor" class="org.sharetask.utility.log.PerformanceInterceptor">
+	    <property name="exitMessage" value="$[targetClassShortName].$[methodName](...) duration: [$[invocationTime]]ms"/>
+	    <property name="loggerName" value="supportServiceTracing" />
+	</bean> 
+	<aop:config>
+		<aop:advisor advice-ref="supportServiceInterceptor" pointcut="execution(public * org.sharetask.service..*ServiceImpl.*(..))" />
+	</aop:config>
+	
+	<!-- ================================================================= -->
+	<!-- Support trace interceptor                                         -->
+	<!-- ================================================================= -->
+	<bean id="supportInterceptor" class="org.springframework.aop.interceptor.CustomizableTraceInterceptor">
+	    <property name="enterMessage" value="&gt; $[targetClassShortName].$[methodName]($[arguments])"/>
+	    <property name="exitMessage" value="&lt; $[targetClassShortName].$[methodName](...) duration: [$[invocationTime]]ms returning [$[returnValue]]"/>
+	    <property name="loggerName" value="supportTracing" />
+	</bean> 
+	<aop:config>
+		<aop:advisor advice-ref="supportInterceptor" pointcut="execution(public * org.sharetask.service..*ServiceImpl.*(..))" />
+	</aop:config>
+	
+	<!-- ================================================================= -->
+	<!-- Exception error interceptor                                       -->
+	<!-- ================================================================= -->
+	<bean id="exceptionInterceptor" class="org.sharetask.utility.log.ErrorInterceptor">
+	    <property name="exceptionMessage" value="E $[targetClassShortName].$[methodName]($[arguments]): $[exception]"/>
+	    <property name="loggerName" value="exceptionLogging" />
+	</bean> 
+	<aop:config>
+		<aop:advisor advice-ref="exceptionInterceptor" pointcut="execution(public * org.sharetask.service..*ServiceImpl.*(..))" />
+		<aop:advisor advice-ref="exceptionInterceptor" pointcut="execution(public void org.sharetask.service..*ServiceImpl.*(..))" />
+	</aop:config>	
+</beans>

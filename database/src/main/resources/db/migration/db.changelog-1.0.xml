@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
+						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+	<changeSet id="create: roles" author="mbocek">
+		<createTable tableName="USER_ROLE" remarks="Users and roles associateted entity">
+			<column name="USER_NAME" type="VARCHAR(255)" remarks="User identifierd">
+				<constraints nullable="false"/>
+			</column>
+			<column name="ROLE" type="VARCHAR(255)" remarks="Role identifiert">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: roles primary key" author="mbocek">
+		<addPrimaryKey tableName="USER_ROLE" columnNames="USER_NAME,ROLE"
+			constraintName="PK_USER_ROLE" />
+	</changeSet>
+	
+	<changeSet id="create: user_authentication" author="mbocek">
+		<createTable tableName="USER_AUTHENTICATION" remarks="Table for storing user authentication data">
+			<column name="USER_NAME" type="VARCHAR(255)" remarks="User identifiert">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_USER_AUTHENTICATION" />
+			</column>
+			<column name="ENABLED" type="BOOLEAN" remarks="Enabled flag" >
+				<constraints nullable="false" />
+			</column>
+			<column name="PASSWORD" type="VARCHAR(128)" remarks="Encoded password">
+				<constraints nullable="false" />
+			</column>
+			<column name="SALT" type="VARCHAR(128)" remarks="Generated salt password">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATED_ON" type="DATETIME" remarks="Date when record was creaded">
+				<constraints nullable="false" />
+			</column>
+			<column name="UPDATED_ON" type="DATETIME" remarks="Date when record was updated">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>	
+	</changeSet>
+
+	<changeSet id="create: user_information" author="mbocek">
+		<createTable tableName="USER_INFORMATION" remarks="Table for storing user information">
+			<column name="USER_NAME" type="VARCHAR(255)" remarks="User identifiert">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_USER_INFORMATION" />
+			</column>
+			<column name="NAME" type="VARCHAR(255)" remarks="User name">
+				<constraints nullable="false" />
+			</column>
+			<column name="SURNAME" type="VARCHAR(255)" remarks="Surname">
+				<constraints nullable="false" />
+			</column>
+			<column name="MOBILE_PHONE" type="varchar(20)" remarks="Mobile phone number"/>
+			<column name="CREATED_ON" type="DATETIME" remarks="Date when record was creaded">
+				<constraints nullable="false" />
+			</column>
+			<column name="UPDATED_ON" type="DATETIME" remarks="Date when record was updated">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: user foreignkeys" author="mbocek">
+		<addForeignKeyConstraint baseColumnNames="USER_NAME" baseTableName="USER_ROLE"
+			constraintName="FK_ROLE_USER_INFO" deferrable="false" initiallyDeferred="false"
+			referencedColumnNames="USER_NAME" referencedTableName="USER_INFORMATION"/>
+	</changeSet>
+
+	<changeSet id="create: invitation" author="mbocek">
+		<createTable tableName="INVITATION" remarks="Table for storing invitations">
+			<column autoIncrement="true" name="ID" type="BIGINT" remarks="Primary key">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_INVITATION" />
+			</column>
+			<column name="USER_NAME" type="VARCHAR(255)" remarks="User identifiert">
+				<constraints nullable="false" />
+			</column>
+			<column name="TYPE" type="VARCHAR(128)" remarks="Invitation type">
+				<constraints nullable="false" />
+			</column>
+			<column name="INVITATION_CODE" type="VARCHAR(255)" remarks="Invitation code">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENTITY_ID" type="BIGINT" remarks="Referenced entity id" >
+				<constraints nullable="true" />
+			</column>
+			<column name="CREATED_BY" type="VARCHAR(255)" remarks="User indentifiert who created record">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATED_ON" type="DATETIME" remarks="Date when record was creaded">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+	
+	<changeSet id="create: notification queue" author="mbocek">
+		<createTable tableName="NOTIFICATION_QUEUE" remarks="notification queue">
+			<column autoIncrement="true" name="ID" type="BIGINT" remarks="Primary key">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_NOTIFICATION_QUEUE" />
+			</column>
+			<column name="TYPE" type="VARCHAR(50)" remarks="Type of notification">
+				<constraints nullable="false" />
+			</column>
+			<column name="FROM" type="VARCHAR(255)" remarks="Sender infdentifiert">
+				<constraints nullable="false" />
+			</column>
+			<column name="SUBJECT" type="VARCHAR(255)" remarks="Notification subject">
+				<constraints nullable="false" />
+			</column>
+			<column name="MESSAGE" type="BLOB" remarks="Message">
+				<constraints nullable="false" />
+			</column>
+			<column name="RETRY" type="BIGINT" remarks="Retry count">
+				<constraints nullable="false"/>
+			</column>
+			<column name="PRIORITY_CODE" type="VARCHAR(50)" remarks="Priority for send">
+				<constraints nullable="false"/>
+			</column>
+			<column name="UPDATED_ON" type="DATETIME" remarks="Date when record was updated">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: priorily list" author="mbocek">
+		<createTable tableName="C_PRIORITY" remarks="priority list">
+			<column name="CODE" type="VARCHAR(50)" remarks="Priority primary key">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_PRIORITY" />
+			</column>
+			<column name="WEIGHT" type="BIGINT" remarks="Weight of priority">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: notification queue to" author="mbocek">
+		<createTable tableName="NOTIFICATION_QUEUE_TO" remarks="notification queue to list">
+			<column name="NOTIFICATION_QUEUE_ID" type="BIGINT" remarks="Notification queue reference">
+				<constraints nullable="false"/>
+			</column>
+			<column name="TO" type="VARCHAR(255)" remarks="Recipient">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: notification_queue_to foreign key and primary key" author="mbocek" >
+		<addForeignKeyConstraint constraintName="FK_NOTIFICATION_QUEUE_TO"
+			baseTableName="NOTIFICATION_QUEUE_TO" baseColumnNames="NOTIFICATION_QUEUE_ID"
+			referencedTableName="NOTIFICATION_QUEUE" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FK_NOTIFICATION_QUEUE_PRIORITY"
+			baseTableName="NOTIFICATION_QUEUE" baseColumnNames="PRIORITY_CODE"
+			referencedTableName="C_PRIORITY" referencedColumnNames="CODE" />
+		<addPrimaryKey tableName="NOTIFICATION_QUEUE_TO" columnNames="NOTIFICATION_QUEUE_ID,TO"
+			constraintName="PK_NOTIFICATION_QUEUE_TO" />
+	</changeSet>
+	
+	<changeSet id="load: priorities" author="mbocek">
+		<comment>Load initial data</comment>
+		<loadData tableName="C_PRIORITY" file="db/migration/dev/priority.csv">
+			<column name="CODE" type="STRING"/>
+			<column name="WEIGHT" type="NUMERIC"/>
+		</loadData>
+		<rollback>
+			<delete tableName="C_PRIORITY"/>
+		</rollback>
+	</changeSet>
+	
+</databaseChangeLog>
