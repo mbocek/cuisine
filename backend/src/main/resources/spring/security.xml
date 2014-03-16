@@ -87,12 +87,8 @@
 		<property name="securityMetadataSource">
 			<security:filter-security-metadata-source use-expressions="true">
 				<security:intercept-url pattern="/" access="permitAll" />
-				<security:intercept-url pattern="/features" access="permitAll" />
-				<security:intercept-url pattern="/signin" access="permitAll" />
-				<security:intercept-url pattern="/register" access="permitAll" />
-				<security:intercept-url pattern="/webapp" access="permitAll" />
-				<security:intercept-url pattern="/resources-webapp-#{applicationProps['application.version']}/**" access="permitAll" />
-				<security:intercept-url pattern="/resources-web-#{applicationProps['application.version']}/**" access="permitAll" />
+				<security:intercept-url pattern="/resources-#{applicationProps['application.version']}/**" access="permitAll" />
+				<security:intercept-url pattern="/templates/**" access="permitAll" />
 				<security:intercept-url pattern="/api/info" access="permitAll" />
 				<security:intercept-url pattern="/api/user/login/status" access="permitAll" />
 				<security:intercept-url pattern="/api/user/login" access="permitAll" />
@@ -101,9 +97,6 @@
 				<security:intercept-url pattern="/api/user/logout" access="permitAll" />
 				<security:intercept-url pattern="/api/user/password" access="permitAll" method="POST"/>
 				<security:intercept-url pattern="/app-info" access="hasRole('ROLE_ADMINISTRATOR')" />
-				<security:intercept-url pattern="/confirm/**" access="permitAll" />
-				<security:intercept-url pattern="/confirmed" access="permitAll" />
-				<security:intercept-url pattern="/forgot_password" access="permitAll" />
 				<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />			
 			</security:filter-security-metadata-source>
 		</property>
