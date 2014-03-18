@@ -2,7 +2,7 @@
 
 var services = angular.module('app.services', []);
 
-services.service('User', ['$rootScope', '$http', '$log', function($rootScope, $http, $log) {
+services.service('user', ['$rootScope', '$http', '$log', function($rootScope, $http, $log) {
 	
 	this.authenticate = function(user, success, error) {
 		$log.debug("Login user (user: %o)", user);

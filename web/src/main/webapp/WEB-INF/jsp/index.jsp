@@ -36,9 +36,9 @@
 		<link href="<c:url value="/resources-${applicationVersion}/css/bootstrap.min.css"/>" rel="stylesheet" media="screen" />
 		<title>cuisine</title>
 	</head>
-	<body>
+	<body ng-init="appBasePath = '<c:url value="/"/>';">
 		<div class="container">
-			<div class="navbar" ng-controller="HeaderController">
+			<div class="navbar" ng-controller="HeaderController" ng-init="checkLogin()">
 				<div class="navbar-inner">
 					<a class="brand" href="#">Cuisine</a>
 					<ul class="nav" >
@@ -50,7 +50,7 @@
 					</ul>
 				</div>
 			</div>
-			<div ng-view ng-init="appBasePath = '<c:url value="/"/>';"></div>
+			<div ng-view></div>
 		</div>
 		
 		<script type="text/javascript" src="<c:url value="/resources-${applicationVersion}/js/vendor/jquery/jquery-2.1.0.min.js" />"></script>
