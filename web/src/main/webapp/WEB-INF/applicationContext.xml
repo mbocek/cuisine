@@ -13,6 +13,7 @@
 	<import resource="classpath:/spring/mail.xml" />
 	<import resource="classpath:/spring/template.xml" />
 	<import resource="classpath:/spring/scheduler.xml" />
+	<import resource="classpath:/spring/web-security.xml" />
 
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="defaultLocale" value="en" />

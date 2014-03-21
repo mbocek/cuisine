@@ -9,103 +9,6 @@
 						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
-	<context:property-placeholder location="classpath:/config.properties"/>
-	<util:properties id="applicationProps" location="classpath:application.properties"/>
-
-	<!-- ================================================================= -->
-	<!-- Filter chain with mapping to url                                  -->
-	<!-- - one chain is for callback from services like google, facebook.. -->
-	<!-- - second chain is standard security chain                         -->
-	<!-- ================================================================= -->
-	<bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
-	    <security:filter-chain-map request-matcher="ant">
-	        <security:filter-chain pattern="/**" filters="securityContextFilter, requestCacheFilter, servletApiFilter, 
-	        	rememberMeProcessingFilter, anonFilter, sessionMgmtFilter, exceptionTranslator, filterSecurityInterceptor" />
-	    </security:filter-chain-map>
-	</bean>
-
-	<!-- ================================================================= -->
-	<!-- Populate security context holder with information from repository -->
-	<!-- ================================================================= -->
-	<bean id="securityContextFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter">
-		<property name="securityContextRepository" ref="securityContextRepository" />
-	</bean>
-
-	<!-- ================================================================= -->
-	<!-- Security context repository definition                            -->
-	<!-- ================================================================= -->
-	<bean id="securityContextRepository" class="org.springframework.security.web.context.HttpSessionSecurityContextRepository">
-		<property name="disableUrlRewriting" value="true" />
-	</bean>
-
-	<bean id="requestCacheFilter" class="org.springframework.security.web.savedrequest.RequestCacheAwareFilter" />
-	
-	<bean id="servletApiFilter" class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter" />
-
-	<bean id="rememberMeProcessingFilter" class="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter">
-		<property name="rememberMeServices" ref="rememberMeServices" />
-		<property name="authenticationManager" ref="authenticationManagerStd" />
-	</bean>
-	
-	<bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
-		<property name="userDetailsService" ref="userService" />
-		<property name="key" value="sharetask" />
-	</bean>	
-
-	<bean id="anonFilter" class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
-		<property name="key" value="sharetask" />
-		<property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS" />
-	</bean>
-
-	<bean id="sessionMgmtFilter" class="org.springframework.security.web.session.SessionManagementFilter">
-		<constructor-arg ref="securityContextRepository" />
-	</bean>
-
-	<bean id="accessDeniedHandler" class="org.springframework.security.web.access.AccessDeniedHandlerImpl">
-		<property name="errorPage" value="/denied" />
-	</bean>
-
-	<bean id="exceptionTranslator" class="org.springframework.security.web.access.ExceptionTranslationFilter">
-		<property name="authenticationEntryPoint" ref="loginUrlAuthenticationEntryPoint"/>
-		<property name="accessDeniedHandler" ref="accessDeniedHandler"/>
-	</bean>
-
-	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
-		<property name="decisionVoters">
-			<list>
-				<bean class="org.springframework.security.access.vote.RoleVoter" />
-				<bean class="org.springframework.security.web.access.expression.WebExpressionVoter" />
-				<bean class="org.springframework.security.access.vote.AuthenticatedVoter" />
-			</list>
-		</property>
-	</bean>
-
-	<!-- ================================================================= -->
-	<!-- URL security filter                                               -->
-	<!-- ================================================================= -->
-	<bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
-		<property name="securityMetadataSource">
-			<security:filter-security-metadata-source use-expressions="true">
-				<security:intercept-url pattern="/" access="permitAll" />
-				<security:intercept-url pattern="/resources-#{applicationProps['application.version']}/**" access="permitAll" />
-				<security:intercept-url pattern="/templates/**" access="permitAll" />
-				<security:intercept-url pattern="/api/info" access="permitAll" />
-				<security:intercept-url pattern="/api/user/login/status" access="permitAll" />
-				<security:intercept-url pattern="/api/user/login" access="permitAll" />
-				<security:intercept-url pattern="/api/user/confirm" access="permitAll" />
-				<security:intercept-url pattern="/api/user" method="POST" access="permitAll" />
-				<security:intercept-url pattern="/api/user/logout" access="permitAll" />
-				<security:intercept-url pattern="/api/user/password" access="permitAll" method="POST"/>
-				<security:intercept-url pattern="/app-info" access="hasRole('ROLE_ADMINISTRATOR')" />
-				<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />			
-			</security:filter-security-metadata-source>
-		</property>
-		<property name="authenticationManager" ref="authenticationManagerStd" />
-		<property name="accessDecisionManager" ref="accessDecisionManager" />
-	</bean>
-
-	<bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
-	
 	<!-- ================================================================= -->
 	<!-- Authentication manager for all calls                              -->
 	<!-- ================================================================= -->
@@ -135,7 +38,9 @@
 	<security:global-method-security pre-post-annotations="enabled">
 		<security:expression-handler ref="expressionHandler"/>
 	</security:global-method-security>
-
+	<!-- ================================================================= -->
+	<!-- Permission evaluator for specific permission verbs                -->
+	<!-- ================================================================= -->
 	<bean id="expressionHandler"
 		class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
 		<property name="permissionEvaluator" ref="permissionEvaluator" />
@@ -150,6 +55,5 @@
 			</map>
 		</constructor-arg>
 	</bean>
-	
-	<alias name="filterChainProxy" alias="springSecurityFilterChain"/>
+
 </beans>

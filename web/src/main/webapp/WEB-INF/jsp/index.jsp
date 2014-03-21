@@ -46,7 +46,12 @@
                         <li ng-hide="isLoggedIn" ng-class="{ active: isActive('/login')}">
                         	<a href="<c:url value="#/login"/>">Sign in</a>
                         </li>
-						<li ng-hide="isLoggedIn"><a href="<c:url value="app"/>">Sign up</a></li>
+						<li ng-hide="isLoggedIn" ng-class="{ active: isActive('/register')}">
+							<a href="<c:url value="#/register"/>">Sign up</a>
+						</li>
+						<li ng-hide="!isLoggedIn" ng-controller="UserController">
+							<a href="<c:url value="#/logout" />" ng-click="logout()">Sign out</a>
+						</li>
 					</ul>
 				</div>
 			</div>

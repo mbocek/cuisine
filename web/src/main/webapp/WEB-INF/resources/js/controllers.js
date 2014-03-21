@@ -2,15 +2,35 @@ var controllers = angular.module('app.controllers', [ ]);
 
 controllers.controller('UserController', [ '$rootScope', '$scope', '$http', 'user', '$log', '$location',    
 		function($rootScope, $scope, $http, user, $log, $location) {
-			$scope.authenticate = function() {
+			
+			/**
+			 * Login to application
+			 */
+			$scope.login = function() {
 				$log.log("Login user (username: %s) with password (password: %s)", $scope.username, $scope.password);
-				user.authenticate({username: $scope.username, password: $scope.password},
+				user.login({username: $scope.username, password: $scope.password},
 					function(data, status) {
 						$log.log("User auth success! data: %o, status: %o", data, status);
 						$rootScope.isLoggedIn = true;
 						$location.path('/');
 					}, function(data, status) {
 						$log.log("User auth error! data: %o, status: %o", data, status);
+						$rootScope.isLoggedIn = false;
+					});
+			};
+			
+			/**
+			 * Logout from application
+			 */
+			$scope.logout = function() {
+				$log.log("Logout user");
+				user.logout(
+					function(data, status) {
+						$log.log("User is loged out! status: %o", status);
+						$rootScope.isLoggedIn = false;
+						$location.path('/');	
+					}, function(data, status) {
+						$log.log("User isn't correctly loged out! status: %o", status);
 						$rootScope.isLoggedIn = false;
 					});
 			};
