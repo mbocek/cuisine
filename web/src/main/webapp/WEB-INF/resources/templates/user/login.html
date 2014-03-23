@@ -1,23 +1,23 @@
 <div class="well" ng-conroller="UserController">
-	<div class="alert alert-error" ng-hide="errorMessage == null">
-		<strong>Error:</strong> {{errorMessage}}
+	<div class="alert alert-error" ng-hide="!loginError">
+		<strong>{{'Error' | i18n}}:</strong> {{'loginErrorMessage'| i18n}}
 	</div>
 	<form class="form-horizontal" ng-submit="login()">
 		<div class="control-group">
-			<label class="control-label" for="username">Email</label>
+			<label class="control-label" for="username" data-i18n="Email">Email</label>
 			<div class="controls">
 				<input type="text" name="username" ng-model="username" placeholder="Email" auto-fill-sync>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="password">Password</label>
+			<label class="control-label" for="password" data-i18n="Password">Password</label>
 			<div class="controls">
 				<input type="password" name="password" ng-model="password" placeholder="Password" auto-fill-sync>
 			</div>
 		</div>
 		<div class="control-group">
 			<div class="controls">
-				<button type="submit" class="btn">Sign in</button>
+				<button type="submit" class="btn" data-i18n="Signin">Sign in</button>
 			</div>
 		</div>
 	</form>

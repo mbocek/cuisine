@@ -15,7 +15,7 @@ controllers.controller('UserController', [ '$rootScope', '$scope', '$http', 'use
 						$location.path('/');
 					}, function(data, status) {
 						$log.log("User auth error! data: %o, status: %o", data, status);
-						$scope.errorMessage = "Wrong user name or password!";
+						$scope.loginError = true;
 						$rootScope.isLoggedIn = false;
 					});
 			};
