@@ -22,7 +22,7 @@
 	<!-- Scans within the base package of the application for @Components  -->
 	<!-- to configure as beans                                             -->
 	<!-- ================================================================= -->
-	<context:component-scan base-package="org.sharetask.controller" />
+	<context:component-scan base-package="org.cuisine.controller" />
 	
 	<!-- ================================================================= -->
 	<!-- JSP resolver                                                      -->

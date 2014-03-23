@@ -20,7 +20,7 @@
 	<context:spring-configured />
 	<context:annotation-config />
 
-	<context:component-scan base-package="org.sharetask.service" />
+	<context:component-scan base-package="org.cuisine.service" />
 
 	<context:property-placeholder location="classpath:/config.properties"/>
 	<util:properties id="applicationProps" location="classpath:application.properties"/>
@@ -49,13 +49,13 @@
 	<bean id="jmxExporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">  
 		<property name="beans">
 			<map>
-				<entry key="sharetask:type=logging,name=config" value-ref="logConfig" />
-				<entry key="sharetask:name=hibernateStatistics" value-ref="hibernateStatisticsMBean" />
+				<entry key="cuisine:type=logging,name=config" value-ref="logConfig" />
+				<entry key="cuisine:name=hibernateStatistics" value-ref="hibernateStatisticsMBean" />
 			</map>  
 		</property>  
 	</bean>  
 	  
-	<bean id="logConfig" class="org.sharetask.utility.jmx.Log4jConfigurator" />
+	<bean id="logConfig" class="org.cuisine.utility.jmx.Log4jConfigurator" />
 
 	<bean id="hibernateStatisticsMBean" class="org.hibernate.jmx.StatisticsService">
 		<property name="statisticsEnabled" value="true" />
@@ -65,12 +65,12 @@
 	<!-- ================================================================= -->
 	<!-- Service performance interceptor                                   -->
 	<!-- ================================================================= -->
-	<bean id="supportServiceInterceptor" class="org.sharetask.utility.log.PerformanceInterceptor">
+	<bean id="supportServiceInterceptor" class="org.cuisine.utility.log.PerformanceInterceptor">
 	    <property name="exitMessage" value="$[targetClassShortName].$[methodName](...) duration: [$[invocationTime]]ms"/>
 	    <property name="loggerName" value="supportServiceTracing" />
 	</bean> 
 	<aop:config>
-		<aop:advisor advice-ref="supportServiceInterceptor" pointcut="execution(public * org.sharetask.service..*ServiceImpl.*(..))" />
+		<aop:advisor advice-ref="supportServiceInterceptor" pointcut="execution(public * org.cuisine.service..*ServiceImpl.*(..))" />
 	</aop:config>
 	
 	<!-- ================================================================= -->
@@ -82,18 +82,18 @@
 	    <property name="loggerName" value="supportTracing" />
 	</bean> 
 	<aop:config>
-		<aop:advisor advice-ref="supportInterceptor" pointcut="execution(public * org.sharetask.service..*ServiceImpl.*(..))" />
+		<aop:advisor advice-ref="supportInterceptor" pointcut="execution(public * org.cuisine.service..*ServiceImpl.*(..))" />
 	</aop:config>
 	
 	<!-- ================================================================= -->
 	<!-- Exception error interceptor                                       -->
 	<!-- ================================================================= -->
-	<bean id="exceptionInterceptor" class="org.sharetask.utility.log.ErrorInterceptor">
+	<bean id="exceptionInterceptor" class="org.cuisine.utility.log.ErrorInterceptor">
 	    <property name="exceptionMessage" value="E $[targetClassShortName].$[methodName]($[arguments]): $[exception]"/>
 	    <property name="loggerName" value="exceptionLogging" />
 	</bean> 
 	<aop:config>
-		<aop:advisor advice-ref="exceptionInterceptor" pointcut="execution(public * org.sharetask.service..*ServiceImpl.*(..))" />
-		<aop:advisor advice-ref="exceptionInterceptor" pointcut="execution(public void org.sharetask.service..*ServiceImpl.*(..))" />
+		<aop:advisor advice-ref="exceptionInterceptor" pointcut="execution(public * org.cuisine.service..*ServiceImpl.*(..))" />
+		<aop:advisor advice-ref="exceptionInterceptor" pointcut="execution(public void org.cuisine.service..*ServiceImpl.*(..))" />
 	</aop:config>	
 </beans>

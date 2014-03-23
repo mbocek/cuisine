@@ -2,7 +2,7 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd" [
 	<!ENTITY CONVERSION_PATTERN "&#37;d [&#37;X{session}/&#37;X{uid}] [&#37;t] &#37;-5p &#37;c - &#37;m&#37;n">
 	<!-- <!ENTITY VERSION "${definition.majorVersion}.${definition.minorVersion}.${definition.buildNumber}"> -->
-	<!ENTITY APPLICATION_NAME "sharetask">
+	<!ENTITY APPLICATION_NAME "cuisine">
 ]>
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
@@ -47,7 +47,7 @@
 		<appender-ref ref="app-main" />
 	</logger>
 	
-	<logger name="org.sharetask">
+	<logger name="org.cuisine">
 		<level value="INFO" />
 		<appender-ref ref="app-main" />
 	</logger>

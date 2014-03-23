@@ -49,9 +49,9 @@
 	<!-- ================================================================= -->
 	<!-- Permission evaluator for specific permission verbs                -->
 	<!-- ================================================================= -->
-	<bean id="permissionEvaluator" class="org.sharetask.security.AccessPermissionEvaluator">
+	<bean id="permissionEvaluator" class="org.cuisine.security.AccessPermissionEvaluator">
 		<constructor-arg index="0">
-			<map key-type="java.lang.String" value-type="org.sharetask.security.Permission">
+			<map key-type="java.lang.String" value-type="org.cuisine.security.Permission">
 			</map>
 		</constructor-arg>
 	</bean>

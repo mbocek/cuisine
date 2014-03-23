@@ -3,17 +3,17 @@
 	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
 	<configuration>
 		<custom-converters>
-			<converter type="org.sharetask.utility.converter.UserAuthenticationConverter">
-				<class-a>org.sharetask.entity.UserAuthentication</class-a>
-				<class-b>org.sharetask.api.dto.UserDTO</class-b>
+			<converter type="org.cuisine.utility.converter.UserAuthenticationConverter">
+				<class-a>org.cuisine.entity.UserAuthentication</class-a>
+				<class-b>org.cuisine.api.dto.UserDTO</class-b>
 			</converter>
-			<converter type="org.sharetask.utility.converter.UserInformationConverter">
-				<class-a>org.sharetask.entity.UserInformation</class-a>
-				<class-b>org.sharetask.api.dto.UserInfoDTO</class-b>
+			<converter type="org.cuisine.utility.converter.UserInformationConverter">
+				<class-a>org.cuisine.entity.UserInformation</class-a>
+				<class-b>org.cuisine.api.dto.UserInfoDTO</class-b>
 			</converter>
-			<converter type="org.sharetask.utility.converter.InvitationConverter">
-				<class-a>org.sharetask.entity.Invitation</class-a>
-				<class-b>org.sharetask.api.dto.InvitationDTO</class-b>
+			<converter type="org.cuisine.utility.converter.InvitationConverter">
+				<class-a>org.cuisine.entity.Invitation</class-a>
+				<class-b>org.cuisine.api.dto.InvitationDTO</class-b>
 			</converter>
 		</custom-converters>
 	</configuration>

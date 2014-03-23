@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd"[
 	<!ENTITY CONVERSION_PATTERN "&#37;d [&#37;X{session}/&#37;X{uid}] [&#37;t] &#37;-5p &#37;c - &#37;m&#37;n">
-	<!ENTITY APPLICATION_NAME "sharetask">
+	<!ENTITY APPLICATION_NAME "cuisine">
 ]>
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
@@ -34,7 +34,7 @@
 <!-- 		<appender-ref ref="console" /> -->
 <!-- 	</logger> -->
 
-	<logger name="org.sharetask">
+	<logger name="org.cuisine">
 		<level value="DEBUG" />
 		<appender-ref ref="app-test" />
 	</logger>

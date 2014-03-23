@@ -23,7 +23,7 @@
 	<!-- ================================================================= -->
 	<filter>
 		<filter-name>Log session information filter</filter-name>
-		<filter-class>org.sharetask.utility.log.LogSessionFilter</filter-class>
+		<filter-class>org.cuisine.utility.log.LogSessionFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>Log session information filter</filter-name>
@@ -67,7 +67,7 @@
 	<!-- ================================================================= -->
 	<filter>
 		<filter-name>Log user information filter</filter-name>
-		<filter-class>org.sharetask.utility.log.LogUidFilter</filter-class>
+		<filter-class>org.cuisine.utility.log.LogUidFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>Log user information filter</filter-name>

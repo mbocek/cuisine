@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
 
     <bean id="sendNotificationJobDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-        <property name="jobClass" value="org.sharetask.utility.GenericQuartzJob" />
+        <property name="jobClass" value="org.cuisine.utility.GenericQuartzJob" />
         <property name="durability" value="true" />
         <property name="group" value="Maintenance" />
         <property name="jobDataAsMap">
@@ -34,7 +34,7 @@
 		<property name="applicationContextSchedulerContextKey" value="applicationContext" />
 		<property name="quartzProperties">
 			<props>
-				<prop key="org.quartz.scheduler.instanceName">ShareTask</prop>
+				<prop key="org.quartz.scheduler.instanceName">cuisine</prop>
 				<prop key="org.quartz.scheduler.instanceId">AUTO</prop>
 
 				<prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool</prop>

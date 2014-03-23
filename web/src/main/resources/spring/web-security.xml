@@ -49,11 +49,11 @@
 	
 	<bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
 		<property name="userDetailsService" ref="userService" />
-		<property name="key" value="sharetask" />
+		<property name="key" value="cuisine" />
 	</bean>	
 
 	<bean id="anonFilter" class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
-		<property name="key" value="sharetask" />
+		<property name="key" value="cuisine" />
 		<property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS" />
 	</bean>
 

@@ -523,7 +523,7 @@
 			<properties>
 				<definition.database.path>/tmp/db</definition.database.path>
 				<definition.database.jdbc.driver>org.hsqldb.jdbcDriver</definition.database.jdbc.driver>
-				<definition.database.jdbc.url>jdbc:hsqldb:file:${definition.database.path}/sharetask;shutdown=true</definition.database.jdbc.url>
+				<definition.database.jdbc.url>jdbc:hsqldb:file:${definition.database.path}/cuisine;shutdown=true</definition.database.jdbc.url>
 				<definition.database.jdbc.user>sa</definition.database.jdbc.user>
 				<definition.database.jdbc.password></definition.database.jdbc.password>
 			</properties>
@@ -533,7 +533,7 @@
 			<properties>
 				<definition.database.path>/tmp/db-integration</definition.database.path>
 				<definition.database.jdbc.driver>org.hsqldb.jdbcDriver</definition.database.jdbc.driver>
-				<definition.database.jdbc.url>jdbc:hsqldb:file:${definition.database.path}/sharetask;shutdown=true</definition.database.jdbc.url>
+				<definition.database.jdbc.url>jdbc:hsqldb:file:${definition.database.path}/cuisine;shutdown=true</definition.database.jdbc.url>
 				<definition.database.jdbc.user>sa</definition.database.jdbc.user>
 				<definition.database.jdbc.password></definition.database.jdbc.password>
 			</properties>
@@ -542,9 +542,9 @@
 			<id>dev-mysql</id>
 			<properties>
 				<definition.database.jdbc.driver>com.mysql.jdbc.Driver</definition.database.jdbc.driver>
-				<definition.database.jdbc.url>jdbc:mysql://localhost:3306/sharetask?useUnicode=true&amp;characterEncoding=UTF-8</definition.database.jdbc.url>
-				<definition.database.jdbc.user>sharetask</definition.database.jdbc.user>
-				<definition.database.jdbc.password>sharetask</definition.database.jdbc.password>
+				<definition.database.jdbc.url>jdbc:mysql://localhost:3306/cuisine?useUnicode=true&amp;characterEncoding=UTF-8</definition.database.jdbc.url>
+				<definition.database.jdbc.user>cuisine</definition.database.jdbc.user>
+				<definition.database.jdbc.password>cuisine</definition.database.jdbc.password>
 			</properties>
 		</profile>
 		<!-- used only on openshift server - direcly run on openshift paas -->
