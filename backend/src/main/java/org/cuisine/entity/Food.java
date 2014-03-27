@@ -54,6 +54,7 @@ public class Food extends BaseEntity implements Serializable {
 	
 	@Getter @Setter
 	@Enumerated(value = EnumType.STRING)
+	@Column(name = "FOOD_TYPE", nullable = false, length = 50)
 	private FoodType type;
 	
 	@Getter @Setter

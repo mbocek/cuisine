@@ -43,9 +43,9 @@ import org.cuisine.api.Constants;
  */
 @ToString
 @Entity
-@Table(name = "ORDER")
+@Table(name = "FOOD_ORDER")
 @NoArgsConstructor
-public class Order extends BaseEntity implements Serializable {
+public class FoodOrder extends BaseEntity implements Serializable {
 	
 	private static final long serialVersionUID = Constants.VERSION;
 
@@ -64,6 +64,6 @@ public class Order extends BaseEntity implements Serializable {
 
 	@Getter	@Setter
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "USER_ID")
+	@JoinColumn(name = "ORDER_MAKER")
 	private UserInformation orderMaker;
 }

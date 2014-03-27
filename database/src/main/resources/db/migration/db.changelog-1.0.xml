@@ -188,7 +188,7 @@
 	
 	<changeSet id="load: priorities" author="mbocek">
 		<comment>Load initial data</comment>
-		<loadData tableName="C_PRIORITY" file="db/migration/dev/priority.csv">
+		<loadData tableName="C_PRIORITY" file="db/migration/production/priority.csv">
 			<column name="CODE" type="STRING"/>
 			<column name="WEIGHT" type="NUMERIC"/>
 		</loadData>
@@ -196,5 +196,168 @@
 			<delete tableName="C_PRIORITY"/>
 		</rollback>
 	</changeSet>
-	
+
+	<changeSet id="create: food table" author="mbocek">
+		<createTable tableName="FOOD" remarks="food table">
+			<column autoIncrement="true" name="ID" type="BIGINT" remarks="Primary key">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_FOOD" />
+			</column>
+			<column name="CREATED_BY" type="VARCHAR(255)" remarks="User indentifiert who created record">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATED_ON" type="DATETIME" remarks="Date when record was creaded">
+				<constraints nullable="false" />
+			</column>
+			<column name="UPDATED_BY" type="VARCHAR(255)" remarks="User indentifiert who updated record">
+				<constraints nullable="false" />
+			</column>
+			<column name="UPDATED_ON" type="DATETIME" remarks="Date when record was updated">
+				<constraints nullable="false" />
+			</column>
+			<column name="FOOD_TYPE" type="VARCHAR(50)" remarks="Type of food">
+				<constraints nullable="false" />
+			</column>
+			<column name="NAME" type="VARCHAR(256)" remarks="Name of food">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: food foreignkey" author="mbocek">
+		<addForeignKeyConstraint constraintName="FK_FOOD_CREATED_BY"
+			baseTableName="FOOD" baseColumnNames="CREATED_BY"
+			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
+
+		<addForeignKeyConstraint constraintName="FK_FOOD_UPDATED_BY"
+			baseTableName="FOOD" baseColumnNames="UPDATED_BY"
+			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
+	</changeSet>
+ 
+ 	<changeSet id="create: menu table" author="mbocek">
+		<createTable tableName="MENU" remarks="menu table">
+			<column autoIncrement="true" name="ID" type="BIGINT" remarks="Primary key">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_MENU" />
+			</column>
+			<column name="CREATED_BY" type="VARCHAR(255)" remarks="User indentifiert who created record">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATED_ON" type="DATETIME" remarks="Date when record was creaded">
+				<constraints nullable="false" />
+			</column>
+			<column name="UPDATED_BY" type="VARCHAR(255)" remarks="User indentifiert who updated record">
+				<constraints nullable="false" />
+			</column>
+			<column name="UPDATED_ON" type="DATETIME" remarks="Date when record was updated">
+				<constraints nullable="false" />
+			</column>
+			<column name="FOOD_TYPE" type="VARCHAR(50)" remarks="Type of food">
+				<constraints nullable="false" />
+			</column>
+			<column name="NAME" type="VARCHAR(256)" remarks="Name of food">
+				<constraints nullable="false" />
+			</column>
+			<column name="FOR_DATE" type="DATETIME" remarks="Date when menu is valid">
+				<constraints nullable="false" />
+			</column>
+			<column name="PRICE" type="NUMBER(10, 2)" remarks="Price for food">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: menu foreignkey" author="mbocek">
+		<addForeignKeyConstraint constraintName="FK_MENU_CREATED_BY"
+			baseTableName="MENU" baseColumnNames="CREATED_BY"
+			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
+
+		<addForeignKeyConstraint constraintName="FK_MENU_UPDATED_BY"
+			baseTableName="MENU" baseColumnNames="UPDATED_BY"
+			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
+	</changeSet>
+ 
+	<changeSet id="create: menu_food" author="mbocek" >
+		<createTable tableName="MENU_FOOD" remarks="Table for storing refences between menu and foods">
+			<column name="MENU_ID" type="BIGINT" remarks="Reference to menu">
+				<constraints nullable="false" />
+			</column>
+			<column name="FOOD_ID" type="BIGINT" remarks="Reference to food">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: menu_food foreignkey and primarykey" author="mbocek" >
+		<addForeignKeyConstraint constraintName="FK_MENU_FOOD_MENU"
+			baseTableName="MENU_FOOD" baseColumnNames="MENU_ID"
+			referencedTableName="MENU" referencedColumnNames="ID" />
+		<addForeignKeyConstraint constraintName="FK_MENU_FOOD_FOOD"
+			baseTableName="MENU_FOOD" baseColumnNames="FOOD_ID"
+			referencedTableName="FOOD" referencedColumnNames="ID" />
+
+		<addPrimaryKey tableName="MENU_FOOD" columnNames="MENU_ID,FOOD_ID"
+			constraintName="PK_MENU_FOOD" />
+	</changeSet>
+
+ 	<changeSet id="create: food order table" author="mbocek">
+		<createTable tableName="FOOD_ORDER" remarks="food order table">
+			<column autoIncrement="true" name="ID" type="BIGINT" remarks="Primary key">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_FOOD_ORDER" />
+			</column>
+			<column name="CREATED_BY" type="VARCHAR(255)" remarks="User indentifiert who created record">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATED_ON" type="DATETIME" remarks="Date when record was creaded">
+				<constraints nullable="false" />
+			</column>
+			<column name="UPDATED_BY" type="VARCHAR(255)" remarks="User indentifiert who updated record">
+				<constraints nullable="false" />
+			</column>
+			<column name="UPDATED_ON" type="DATETIME" remarks="Date when record was updated">
+				<constraints nullable="false" />
+			</column>
+			<column name="MENU_ID" type="BIGINT" remarks="Reference to menu">
+				<constraints nullable="false" />
+			</column>
+			<column name="ORDER_MAKER" type="VARCHAR(255)" remarks="User which made order">
+				<constraints nullable="false" />
+			</column>
+			<column name="AMOUNT" type="BIGINT" remarks="Amount of order">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: food order foreignkey" author="mbocek">
+		<addForeignKeyConstraint constraintName="FK_FOOD_ORDER_CREATED_BY"
+			baseTableName="FOOD_ORDER" baseColumnNames="CREATED_BY"
+			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
+
+		<addForeignKeyConstraint constraintName="FK_FOOD_ORDER_UPDATED_BY"
+			baseTableName="FOOD_ORDER" baseColumnNames="UPDATED_BY"
+			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
+
+		<addForeignKeyConstraint constraintName="FK_FOOD_ORDER_ORDER_MAKER"
+			baseTableName="FOOD_ORDER" baseColumnNames="ORDER_MAKER"
+			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
+
+		<addForeignKeyConstraint constraintName="FK_FOOD_ORDER_MENU"
+			baseTableName="FOOD_ORDER" baseColumnNames="MENU_ID"
+			referencedTableName="MENU" referencedColumnNames="ID" />
+	</changeSet>
 </databaseChangeLog>

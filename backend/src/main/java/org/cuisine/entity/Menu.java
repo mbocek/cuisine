@@ -24,17 +24,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -65,8 +66,11 @@ public class Menu extends BaseEntity implements Serializable {
 	@Column(name = "NAME", nullable = false, length = 256)
 	private String name;
 	
-	@OneToMany(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "FOOD_ID", referencedColumnName = "ID", nullable = false)
+	@OneToMany
+	@JoinTable(name = "MENU_FOOD", 
+		joinColumns = { @JoinColumn(name = "MENU_ID", referencedColumnName = "ID") }, 
+		inverseJoinColumns = { @JoinColumn(name = "FOOD_ID", referencedColumnName = "ID") }, 
+		uniqueConstraints = { @UniqueConstraint(columnNames = { "MENU_ID", "FOOD_ID" }) })
 	private final List<Food> foods = new ArrayList<Food>();
 
 	@Temporal(TemporalType.TIMESTAMP)
