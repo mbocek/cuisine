@@ -12,6 +12,9 @@ controllers.controller('UserController', [ '$rootScope', '$scope', '$http', 'use
 					function(data, status) {
 						$log.log("User auth success! data: %o, status: %o", data, status);
 						$rootScope.isLoggedIn = true;
+						user.get(function(data, status) {
+							$rootScope.userInfo = data;
+						});
 						$location.path('/');
 					}, function(data, status) {
 						$log.log("User auth error! data: %o, status: %o", data, status);
@@ -52,7 +55,6 @@ controllers.controller('HeaderController', [ '$rootScope', '$scope', '$location'
 							$rootScope.isLoggedIn = true;
 							user.get(function(data, status) {
 								$rootScope.userInfo = data;
-							}, function(data, status) {
 							});
 							$location.path('/');
 						}, function(data, status) {

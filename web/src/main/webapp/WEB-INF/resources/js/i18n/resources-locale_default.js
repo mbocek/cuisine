@@ -1,8 +1,23 @@
 [
 	{
+	    "key":"UserName",
+	    "value":"User name",
+	    "description":""
+	},
+	{
+	    "key":"FirstName",
+	    "value":"Name",
+	    "description":""
+	},
+	{
+	    "key":"SurName",
+	    "value":"Surname",
+	    "description":""
+	},
+	{
 	    "key":"Email",
 	    "value":"Email",
-	    "description":""
+	    "description":"Email address"
 	},
 	{
 	    "key":"Password",

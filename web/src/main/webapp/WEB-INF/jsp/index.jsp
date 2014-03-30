@@ -59,7 +59,7 @@
 					</ul>
 					<ul class="nav pull-right">
 						<li ng-hide="!isLoggedIn">
-						<span>{{userInfo.name}} {{userInfo.surName}}</span>
+							<a href="<c:url value="#/user" />">{{userInfo.name}} {{userInfo.surName}}</a>
 						</li>
 					</ul>
 				</div>
