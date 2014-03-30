@@ -18,6 +18,10 @@
  */
 package org.cuisine.api.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.validation.constraints.Size;
 
 import lombok.Getter;
@@ -46,4 +50,11 @@ public class UserInfoDTO {
 	@Size(min = 4, max = 20)
 	@Getter @Setter
 	private String mobilePhone;
+	
+	@Setter
+	private Collection<String> roles = new ArrayList<String>();
+	
+	public Collection<String> getRoles() {
+		return Collections.unmodifiableCollection(roles);
+	}
 }

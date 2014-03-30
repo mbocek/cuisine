@@ -18,7 +18,11 @@
  */
 package org.cuisine.utility.converter;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.cuisine.api.dto.UserInfoDTO;
+import org.cuisine.entity.Role;
 import org.cuisine.entity.UserInformation;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
@@ -52,6 +56,11 @@ public class UserInformationConverter implements CustomConverter {
 		userInfoDTO.setName(source.getName());
 		userInfoDTO.setSurName(source.getSurName());
 		userInfoDTO.setMobilePhone(source.getMobilePhone());
+		final Collection<String> roles = new ArrayList<String>();
+		for (final Role role : source.getRoles()) {
+			roles.add(role.name());
+		}
+		userInfoDTO.setRoles(roles);
 		return userInfoDTO;
 	}
 }

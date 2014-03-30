@@ -50,6 +50,10 @@ controllers.controller('HeaderController', [ '$rootScope', '$scope', '$location'
 						function(data, status) {
 							$log.log("User is loged in! status: %o", status);
 							$rootScope.isLoggedIn = true;
+							user.get(function(data, status) {
+								$rootScope.userInfo = data;
+							}, function(data, status) {
+							});
 							$location.path('/');
 						}, function(data, status) {
 							$log.log("User isn't loged in! status: %o", status);

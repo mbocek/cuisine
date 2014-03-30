@@ -57,6 +57,11 @@
 							<a href="<c:url value="#/logout" />" ng-click="logout()">{{'Signout' | i18n}}</a>
 						</li>
 					</ul>
+					<ul class="nav pull-right">
+						<li ng-hide="!isLoggedIn">
+						<span>{{userInfo.name}} {{userInfo.surName}}</span>
+						</li>
+					</ul>
 				</div>
 			</div>
 			<div ng-view></div>

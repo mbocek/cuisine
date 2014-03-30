@@ -18,4 +18,9 @@ services.service('user', ['$rootScope', '$http', '$log', function($rootScope, $h
 		$log.debug("Cheking if user is logged in");
 		return $http.get($rootScope.appBasePath + "api/user/login/status").success(success).error(error);
 	};
+
+	this.get = function(success, error) {
+		$log.debug("Getting user info loged in user");
+		return $http.get($rootScope.appBasePath + "api/user").success(success).error(error);
+	};
 }]);
