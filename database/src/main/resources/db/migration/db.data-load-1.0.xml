@@ -22,13 +22,30 @@
 			<column name="UPDATED_ON" type="DATE"/>
 			<column name="MOBILE_PHONE" type="STRING"/>
 		</loadData>
-		<loadData tableName="USER_ROLE" file="db/migration/production/role.csv">
+		<loadData tableName="USER_ROLE" file="db/migration/production/user_role.csv">
 			<column name="USER_ID" type="STRING"/>
 			<column name="ROLE" type="STRING"/>
 		</loadData>
 		<rollback>
 			<delete tableName="USER"/>
 			<delete tableName="USER_ROLE"/>
+		</rollback>
+	</changeSet>
+	
+	<changeSet id="load: food type" author="mbocek">
+		<comment>Load initial data</comment>
+		<loadData tableName="FOOD_TYPE" file="db/migration/production/food_type.csv">
+			<column name="TYPE" type="STRING"/>
+			<column name="CREATED_BY" type="STRING"/>
+			<column name="CREATED_ON" type="DATE"/>
+		</loadData>
+		<loadData tableName="FOOD_TYPE_ROLE" file="db/migration/production/food_type_role.csv">
+			<column name="TYPE" type="STRING"/>
+			<column name="ROLE" type="STRING"/>
+		</loadData>
+		<rollback>
+			<delete tableName="FOOD_TYPE"/>
+			<delete tableName="FOOD_TYPE_ROLE"/>
 		</rollback>
 	</changeSet>
 </databaseChangeLog>
