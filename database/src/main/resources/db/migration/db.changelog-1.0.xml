@@ -385,7 +385,10 @@
 			<column name="ORDER_MAKER" type="VARCHAR(255)" remarks="User which made order">
 				<constraints nullable="false" />
 			</column>
-			<column name="AMOUNT" type="BIGINT" remarks="Amount of order">
+			<column name="ADULT_PORTION_AMOUNT" type="BIGINT" remarks="Amount of order">
+				<constraints nullable="false" />
+			</column>
+			<column name="CHILD_PORTION_AMOUNT" type="BIGINT" remarks="Amount of order">
 				<constraints nullable="false" />
 			</column>
 		</createTable>
