@@ -18,10 +18,57 @@
  */
 package org.cuisine.entity;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import org.cuisine.api.Constants;
+
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public enum FoodType {
-	STARTER, SOUP, MEAL, DESSERT, DRINK;
+@ToString
+@Entity
+@Table(name = "FOOD_TYPE")
+@NoArgsConstructor
+public class FoodType extends BaseImmutableEntity implements Serializable {
+	
+	private static final long serialVersionUID = Constants.VERSION;
+
+	public static enum Type {
+		STARTER, SOUP, MEAL, DESSERT, DRINK, SNACK;
+	}
+
+	@Id
+	@Getter @Setter
+	@Enumerated(value = EnumType.STRING)
+	@Column(name = "TYPE", nullable = false, length = 50)
+	private Type type;
+
+	@ElementCollection(targetClass = Role.class)
+	@JoinTable(name = "FOOD_TYPE_ROLE", joinColumns = @JoinColumn(name = "TYPE"))
+	@Column(name = "ROLE", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private Collection<Role> roles = new HashSet<Role>();
+	
+	public Collection<Role> getRoles() {
+		return Collections.unmodifiableCollection(roles);
+	}
 }

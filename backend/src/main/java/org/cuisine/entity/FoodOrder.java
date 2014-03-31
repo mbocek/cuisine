@@ -59,8 +59,12 @@ public class FoodOrder extends BaseEntity implements Serializable {
 	private Menu menu;
 
 	@Getter @Setter
-	@Column(name = "AMOUNT", nullable = false)
-	private Integer amunt;
+	@Column(name = "ADULT_PORTION_AMOUNT", nullable = false)
+	private Integer adultPortionAmount;
+
+	@Getter @Setter
+	@Column(name = "CHILD_PORTION_AMOUNT", nullable = false)
+	private Integer childPortionAmount;
 
 	@Getter	@Setter
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)

@@ -197,6 +197,54 @@
 		</rollback>
 	</changeSet>
 
+	<changeSet id="create: food type table" author="mbocek">
+		<createTable tableName="FOOD_TYPE" remarks="food type table">
+			<column name="TYPE" type="VARCHAR(50)" remarks="Food type">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_FOOD_TYPE" />
+			</column>
+			<column name="CREATED_BY" type="VARCHAR(255)" remarks="User indentifiert who created record">
+				<constraints nullable="false" />
+			</column>
+			<column name="CREATED_ON" type="DATETIME" remarks="Date when record was creaded">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: food type foreignkey" author="mbocek">
+		<addForeignKeyConstraint constraintName="FK_FOOD_TYPE_CREATED_BY"
+			baseTableName="FOOD_TYPE" baseColumnNames="CREATED_BY"
+			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
+	</changeSet>
+
+	<changeSet id="create: food type role table" author="mbocek">
+		<createTable tableName="FOOD_TYPE_ROLE" remarks="food type role table">
+			<column name="TYPE" type="VARCHAR(50)" remarks="Food type">
+				<constraints nullable="false" />
+			</column>
+			<column name="ROLE" type="VARCHAR(50)" remarks="Role">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<modifySql dbms="mysql">
+			<append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_general_ci" />
+		</modifySql>
+	</changeSet>
+
+	<changeSet id="create: food type role foreignkey" author="mbocek">
+		<addForeignKeyConstraint constraintName="FK_FOOD_TYPE_ROLE"
+			baseTableName="FOOD_TYPE_ROLE" baseColumnNames="TYPE"
+			referencedTableName="FOOD_TYPE" referencedColumnNames="TYPE" />
+
+		<addPrimaryKey tableName="FOOD_TYPE_ROLE" columnNames="TYPE,ROLE"
+			constraintName="PK_FOOD_TYPE_ROLE" />
+	</changeSet>
+
 	<changeSet id="create: food table" author="mbocek">
 		<createTable tableName="FOOD" remarks="food table">
 			<column autoIncrement="true" name="ID" type="BIGINT" remarks="Primary key">
@@ -235,6 +283,10 @@
 		<addForeignKeyConstraint constraintName="FK_FOOD_UPDATED_BY"
 			baseTableName="FOOD" baseColumnNames="UPDATED_BY"
 			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
+
+		<addForeignKeyConstraint constraintName="FK_FOOD_FOOD_TYPE"
+			baseTableName="FOOD" baseColumnNames="FOOD_TYPE"
+			referencedTableName="FOOD_TYPE" referencedColumnNames="TYPE" />
 	</changeSet>
  
  	<changeSet id="create: menu table" author="mbocek">
@@ -333,7 +385,10 @@
 			<column name="ORDER_MAKER" type="VARCHAR(255)" remarks="User which made order">
 				<constraints nullable="false" />
 			</column>
-			<column name="AMOUNT" type="BIGINT" remarks="Amount of order">
+			<column name="ADULT_PORTION_AMOUNT" type="BIGINT" remarks="Amount of order">
+				<constraints nullable="false" />
+			</column>
+			<column name="CHILD_PORTION_AMOUNT" type="BIGINT" remarks="Amount of order">
 				<constraints nullable="false" />
 			</column>
 		</createTable>
