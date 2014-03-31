@@ -1,0 +1,25 @@
+<div class="well"data-ng-conroller="OrderController">
+	<div class="alert alert-error" data-ng-hide="!orderError">
+		<strong>{{'Error' | i18n}}:</strong> {{'loginErrorMessage'| i18n}}
+	</div>
+	<form class="form-horizontal" data-ng-submit="order()">
+	
+		<div class="form-group">
+			<label class="control-label" for="username" data-i18n="Email">Email</label>
+			<div class="controls">
+				<input type="text" name="username" data-ng-model="username" data-i18n-attr="Email|placeholder" data-auto-fill-sync>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="password" data-i18n="Password">Password</label>
+			<div class="controls">
+				<input type="password" name="password" data-ng-model="password" data-i18n-attr="Password|placeholder" data-auto-fill-sync>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="controls">
+				<button type="submit" class="btn" data-i18n="Signin">Sign in</button>
+			</div>
+		</div>
+	</form>
+</div>

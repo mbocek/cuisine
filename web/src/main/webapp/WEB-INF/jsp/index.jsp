@@ -37,36 +37,41 @@
 		<meta name="description" content="">
 		<meta name="keywords" content="">
 		<meta name="author" content="">
-		<link href="<c:url value="/resources-${applicationVersion}/css/bootstrap.min.css"/>" rel="stylesheet" media="screen" />
+		<link href="<c:url value="/resources-${applicationVersion}/css/bootstrap/bootstrap.min.css"/>" rel="stylesheet" media="screen" />
 		<title>cuisine</title>
 	</head>
 	<body data-ng-init="appBasePath = '<c:url value="/"/>'; appResourcePath = '<c:url value="/resources-${applicationVersion}" />'">
+
 		<div class="container">
-			<div class="navbar" data-ng-controller="HeaderController" data-ng-init="checkLogin()">
-				<div class="navbar-inner">
-					<a class="brand" href="#">{{'Cuisine' | i18n}}</a>
-					<ul class="nav" >
-						<li data-ng-class="{ active: isActive('/')}"><a href="<c:url value="/"/>">{{'Home' | i18n}}</a></li>
-                        <li data-ng-hide="isLoggedIn" data-ng-class="{ active: isActive('/login')}">
-                        	<a href="<c:url value="#/login"/>">{{'Signin' | i18n}}</a>
-                        </li>
-						<li data-ng-hide="isLoggedIn" data-ng-class="{ active: isActive('/register')}">
-							<a href="<c:url value="#/register"/>">{{'Signup' | i18n}}</a>
-						</li>
-						<li data-ng-hide="!isLoggedIn" data-ng-controller="UserController">
-							<a href="<c:url value="#/logout" />" data-ng-click="logout()">{{'Signout' | i18n}}</a>
-						</li>
-					</ul>
-					<ul class="nav pull-right">
-						<li data-ng-hide="!isLoggedIn">
-							<a href="<c:url value="#/user" />">{{userInfo.name}} {{userInfo.surName}}</a>
-						</li>
-					</ul>
+			<nav class="navbar navbar-default" role="navigation" data-ng-controller="HeaderController" data-ng-init="checkLogin()">	
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="#">{{'Cuisine' | i18n}}</a>
+					</div>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav" >
+							<li data-ng-class="{ active: isActive('/')}"><a href="<c:url value="/"/>">{{'Home' | i18n}}</a></li>
+	                        <li data-ng-hide="isLoggedIn" data-ng-class="{ active: isActive('/login')}">
+	                        	<a href="<c:url value="#/login"/>">{{'Signin' | i18n}}</a>
+	                        </li>
+							<li data-ng-hide="isLoggedIn" data-ng-class="{ active: isActive('/register')}">
+								<a href="<c:url value="#/register"/>">{{'Signup' | i18n}}</a>
+							</li>
+							<li data-ng-hide="!isLoggedIn" data-ng-controller="UserController">
+								<a href="<c:url value="#/logout" />" data-ng-click="logout()">{{'Signout' | i18n}}</a>
+							</li>
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li data-ng-hide="!isLoggedIn">
+								<a href="<c:url value="#/user" />">{{userInfo.name}} {{userInfo.surName}}</a>
+							</li>
+						</ul>
+					</div>
 				</div>
-			</div>
+			</nav>
 			<div data-ng-view></div>
 		</div>
-		
+				
 		<script type="text/javascript" src="<c:url value="/resources-${applicationVersion}/js/vendor/jquery/jquery-2.1.0.min.js" />"></script>
 		<script type="text/javascript" src="<c:url value="/resources-${applicationVersion}/js/vendor/bootstrap/bootstrap.min.js" />"></script>
 		<script type="text/javascript" src="<c:url value="/resources-${applicationVersion}/js/vendor/angular/angular.js" />"></script>

@@ -1,0 +1,5 @@
+USER_NAME,ROLE
+dev1@ekolandia.cz,ROLE_USER
+dev1@ekolandia.cz,ROLE_ADMINISTRATOR
+dev2@ekolandia.cz,ROLE_USER
+dev3@ekolandia.cz,ROLE_USER

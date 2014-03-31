@@ -22,7 +22,7 @@
 			<column name="UPDATED_ON" type="DATE"/>
 			<column name="MOBILE_PHONE" type="STRING"/>
 		</loadData>
-		<loadData tableName="USER_ROLE" file="db/migration/dev/role.csv">
+		<loadData tableName="USER_ROLE" file="db/migration/dev/user_role.csv">
 			<column name="USER_NAME" type="STRING"/>
 			<column name="ROLE" type="STRING"/>
 		</loadData>
