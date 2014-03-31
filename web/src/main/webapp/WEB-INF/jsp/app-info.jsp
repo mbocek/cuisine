@@ -45,7 +45,7 @@
 		<p>
 		<% 
 		Properties systemProperties = System.getProperties();
-		Enumeration enuProp = systemProperties.propertyNames();
+		Enumeration<?> enuProp = systemProperties.propertyNames();
 		while (enuProp.hasMoreElements()) {
 			String propertyName = (String) enuProp.nextElement();
 			String propertyValue = systemProperties.getProperty(propertyName);

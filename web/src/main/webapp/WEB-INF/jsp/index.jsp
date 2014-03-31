@@ -29,7 +29,7 @@
 
 
 <!doctype html>
-<html lang="en" ng-app="app">
+<html lang="en" data-ng-app="app">
 	<!-- Application version: ${applicationVersion} -->
 	<!-- Application revision: ${applicationRevision} -->
 	<head>
@@ -40,31 +40,31 @@
 		<link href="<c:url value="/resources-${applicationVersion}/css/bootstrap.min.css"/>" rel="stylesheet" media="screen" />
 		<title>cuisine</title>
 	</head>
-	<body ng-init="appBasePath = '<c:url value="/"/>'; appResourcePath = '<c:url value="/resources-${applicationVersion}" />'">
+	<body data-ng-init="appBasePath = '<c:url value="/"/>'; appResourcePath = '<c:url value="/resources-${applicationVersion}" />'">
 		<div class="container">
-			<div class="navbar" ng-controller="HeaderController" ng-init="checkLogin()">
+			<div class="navbar" data-ng-controller="HeaderController" data-ng-init="checkLogin()">
 				<div class="navbar-inner">
 					<a class="brand" href="#">{{'Cuisine' | i18n}}</a>
 					<ul class="nav" >
-						<li ng-class="{ active: isActive('/')}"><a href="<c:url value="/"/>">{{'Home' | i18n}}</a></li>
-                        <li ng-hide="isLoggedIn" ng-class="{ active: isActive('/login')}">
+						<li data-ng-class="{ active: isActive('/')}"><a href="<c:url value="/"/>">{{'Home' | i18n}}</a></li>
+                        <li data-ng-hide="isLoggedIn" data-ng-class="{ active: isActive('/login')}">
                         	<a href="<c:url value="#/login"/>">{{'Signin' | i18n}}</a>
                         </li>
-						<li ng-hide="isLoggedIn" ng-class="{ active: isActive('/register')}">
+						<li data-ng-hide="isLoggedIn" data-ng-class="{ active: isActive('/register')}">
 							<a href="<c:url value="#/register"/>">{{'Signup' | i18n}}</a>
 						</li>
-						<li ng-hide="!isLoggedIn" ng-controller="UserController">
-							<a href="<c:url value="#/logout" />" ng-click="logout()">{{'Signout' | i18n}}</a>
+						<li data-ng-hide="!isLoggedIn" data-ng-controller="UserController">
+							<a href="<c:url value="#/logout" />" data-ng-click="logout()">{{'Signout' | i18n}}</a>
 						</li>
 					</ul>
 					<ul class="nav pull-right">
-						<li ng-hide="!isLoggedIn">
+						<li data-ng-hide="!isLoggedIn">
 							<a href="<c:url value="#/user" />">{{userInfo.name}} {{userInfo.surName}}</a>
 						</li>
 					</ul>
 				</div>
 			</div>
-			<div ng-view></div>
+			<div data-ng-view></div>
 		</div>
 		
 		<script type="text/javascript" src="<c:url value="/resources-${applicationVersion}/js/vendor/jquery/jquery-2.1.0.min.js" />"></script>
