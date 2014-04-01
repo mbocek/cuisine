@@ -9,6 +9,9 @@ app.config([ '$routeProvider', function($routeProvider) {
 	}).when('/user', {
 		templateUrl : 'templates/user/detail.html',
 		controller : 'UserController'
+	}).when('/order', {
+		templateUrl : 'templates/food/order.html',
+		controller : 'OrderController'
 	}).otherwise({
 		redirectTo : '/'
 	});

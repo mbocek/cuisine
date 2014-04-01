@@ -1,61 +1,66 @@
 [
 	{
-	    "key":"UserName",
+	    "key":"_UserName_",
 	    "value":"User name",
 	    "description":""
 	},
 	{
-	    "key":"FirstName",
+	    "key":"_FirstName_",
 	    "value":"Name",
 	    "description":""
 	},
 	{
-	    "key":"SurName",
+	    "key":"_SurName_",
 	    "value":"Surname",
 	    "description":""
 	},
 	{
-	    "key":"Email",
+	    "key":"_Email_",
 	    "value":"Email",
 	    "description":"Email address"
 	},
 	{
-	    "key":"Password",
+	    "key":"_Password_",
 	    "value":"Password",
 	    "description":""
 	},
 	{
-	    "key":"Signin",
+	    "key":"_Signin_",
 	    "value":"Sign in",
 	    "description":""
 	},
 	{
-	    "key":"Signout",
+	    "key":"_Signout_",
 	    "value":"Sign out",
 	    "description":""
 	},
 	{
-	    "key":"Signup",
+	    "key":"_Order_",
+	    "value":"Order",
+	    "description":""
+	},
+	{
+	    "key":"_Signup_",
 	    "value":"Sign up",
 	    "description":""
 	},
 	{
-	    "key":"Home",
+	    "key":"_Home_",
 	    "value":"Home",
 	    "description":""
 	},
 	{
-	    "key":"Cuisine",
+	    "key":"_Cuisine_",
 	    "value":"Cuisine",
 	    "description":""
 	},
 	{
-	    "key":"loginErrorMessage",
+	    "key":"_loginErrorMessage_",
 	    "value":"Wrong user name or password!",
 	    "description":""
 	},
 	{
-	    "key":"Error",
+	    "key":"_Error_",
 	    "value":"Error",
 	    "description":""
 	},

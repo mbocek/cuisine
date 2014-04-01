@@ -38,27 +38,30 @@
 		<meta name="keywords" content="">
 		<meta name="author" content="">
 		<link href="<c:url value="/resources-${applicationVersion}/css/bootstrap/bootstrap.min.css"/>" rel="stylesheet" media="screen" />
+		<link href="<c:url value="/resources-${applicationVersion}/css/app.css"/>" rel="stylesheet" media="screen" />
 		<title>cuisine</title>
 	</head>
 	<body data-ng-init="appBasePath = '<c:url value="/"/>'; appResourcePath = '<c:url value="/resources-${applicationVersion}" />'">
 
 		<div class="container">
-			<nav class="navbar navbar-default" role="navigation" data-ng-controller="HeaderController" data-ng-init="checkLogin()">	
+			<nav class="navbar navbar-default" data-ng-controller="HeaderController" data-ng-init="checkLogin()">	
 				<div class="container-fluid">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="#">{{'Cuisine' | i18n}}</a>
+						<a class="navbar-brand" href="#">{{'_Cuisine_' | i18n}}</a>
 					</div>
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav" >
-							<li data-ng-class="{ active: isActive('/')}"><a href="<c:url value="/"/>">{{'Home' | i18n}}</a></li>
 	                        <li data-ng-hide="isLoggedIn" data-ng-class="{ active: isActive('/login')}">
-	                        	<a href="<c:url value="#/login"/>">{{'Signin' | i18n}}</a>
+	                        	<a href="<c:url value="#/login"/>">{{'_Signin_' | i18n}}</a>
 	                        </li>
 							<li data-ng-hide="isLoggedIn" data-ng-class="{ active: isActive('/register')}">
-								<a href="<c:url value="#/register"/>">{{'Signup' | i18n}}</a>
+								<a href="<c:url value="#/register"/>">{{'_Signup_' | i18n}}</a>
 							</li>
-							<li data-ng-hide="!isLoggedIn" data-ng-controller="UserController">
-								<a href="<c:url value="#/logout" />" data-ng-click="logout()">{{'Signout' | i18n}}</a>
+							<li data-ng-show="isLoggedIn" data-ng-class="{ active: isActive('/order')}">
+								<a href="<c:url value="#/order"/>">{{'_Order_' | i18n}}</a>
+							</li>
+							<li data-ng-show="isLoggedIn" data-ng-controller="UserController">
+								<a href="<c:url value="#/logout" />" data-ng-click="logout()">{{'_Signout_' | i18n}}</a>
 							</li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
