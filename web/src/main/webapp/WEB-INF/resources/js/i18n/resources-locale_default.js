@@ -1,5 +1,20 @@
 [
 	{
+	    "key":"_AdultPortionCount_",
+	    "value":"Adult portion",
+	    "description":""
+	},
+	{
+	    "key":"_ChildrenPortionCount_",
+	    "value":"Children portion",
+	    "description":""
+	},
+	{
+	    "key":"_Send_",
+	    "value":"Send",
+	    "description":""
+	},
+	{
 	    "key":"_UserName_",
 	    "value":"User name",
 	    "description":""

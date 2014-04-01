@@ -60,7 +60,7 @@ public class UserServiceTest extends ServiceUnitTest {
 	 */
 	@Test
 	public void testLoadUserByUsername() {
-		final UserDetails user = userService.loadUserByUsername("dev1@cuisine.cz");
+		final UserDetails user = userService.loadUserByUsername("dev1@ekolandia.cz");
 		assertNotNull(user);
 		assertTrue(user.getAuthorities().size() == 2);
 		final ArrayList<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
@@ -94,7 +94,7 @@ public class UserServiceTest extends ServiceUnitTest {
 	@Test
 	public void testUpdateUser() {
 		final UserInfoDTO userInfoDTO = new UserInfoDTO();
-		userInfoDTO.setUsername("dev1@cuisine.cz");
+		userInfoDTO.setUsername("dev1@ekolandia.cz");
 		userInfoDTO.setName("Samuel");
 		userInfoDTO.setSurName("Michaelson");
 		final UserInfoDTO updatedUser = userService.update(userInfoDTO);
@@ -104,16 +104,16 @@ public class UserServiceTest extends ServiceUnitTest {
 
 	@Test
 	public void testReadUser() {
-		final UserInfoDTO userInfoDTO = userService.read("dev1@cuisine.cz");
+		final UserInfoDTO userInfoDTO = userService.read("dev1@ekolandia.cz");
 		assertEquals(userInfoDTO.getName(), "John");
 		assertEquals(userInfoDTO.getSurName(), "Developer");
 	}
 	
 	@Test
 	public void testResetPassword() {
-		final UserAuthentication userAuthentication = userRepository.read("dev1@cuisine.cz");
+		final UserAuthentication userAuthentication = userRepository.read("dev1@ekolandia.cz");
 		final String password = userAuthentication.getPassword();
-		userService.resetPassword("dev1@cuisine.cz");
+		userService.resetPassword("dev1@ekolandia.cz");
 		assertThat("User password should be changed", password,
 				is(not(equalTo(userAuthentication.getPassword()))));
 	}

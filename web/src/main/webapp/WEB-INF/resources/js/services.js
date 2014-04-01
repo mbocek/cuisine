@@ -24,3 +24,12 @@ services.service('user', ['$rootScope', '$http', '$log', function($rootScope, $h
 		return $http.get($rootScope.appBasePath + "api/user").success(success).error(error);
 	};
 }]);
+
+services.service('order', ['$rootScope', '$http', '$log', function($rootScope, $http, $log) {
+	
+	this.load = function(success, error) {
+		$log.debug("Load order data");
+		return $http.get($rootScope.appBasePath + "api/order").success(success).error(error);
+	};
+}]);
+

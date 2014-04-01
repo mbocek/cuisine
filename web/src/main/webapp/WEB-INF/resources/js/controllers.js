@@ -1,5 +1,8 @@
 var controllers = angular.module('app.controllers', [ ]);
 
+/**
+ * User controller.
+ */
 controllers.controller('UserController', [ '$rootScope', '$scope', '$http', 'user', '$log', '$location',    
 		function($rootScope, $scope, $http, user, $log, $location) {
 			
@@ -41,6 +44,30 @@ controllers.controller('UserController', [ '$rootScope', '$scope', '$http', 'use
 			
 		} ]);
 
+/**
+ * Order controller.
+ */
+controllers.controller('OrderController', [ '$rootScope', '$scope', '$http', 'order', '$log', '$location',    
+   		function($rootScope, $scope, $http, order, $log, $location) {
+   			
+   			/**
+   			 * Login to application
+   			 */
+   			$scope.load = function() {
+   				$log.log("Loading orders");
+   				order.load(
+   					function(data, status) {
+   						$log.log("Load order data! data: %o, status: %o", data, status);
+						$scope.order = data;
+   					}, function(data, status) {
+   						$log.log("Order data load error! data: %o, status: %o", data, status);
+   					});
+   			};
+   		} ]);
+
+/**
+ * Header controller.
+ */
 controllers.controller('HeaderController', [ '$rootScope', '$scope', '$location', 'user', '$log', 
 		function($rootScope, $scope, $location, user, $log) {
 			$scope.isActive = function(viewLocation) {

@@ -76,11 +76,11 @@ public class AuthenticationServiceTest extends DbUnitTest {
 		final ArrayList<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 		list.add(new SimpleGrantedAuthority(Role.ROLE_USER.name()));
 		list.add(new SimpleGrantedAuthority(Role.ROLE_ADMINISTRATOR.name()));
-		final User u = new UserDetailsImpl("dev1@cuisine.cz", "password", "6ef7a5723d302c64d65d02f5c6662dc61bebec930ea300620bc9ff7f12b49fda11e2e57933526fd3b73840b0693a7cf4abe05fbfe16223d4bd42eb3043cf5d24", list);
+		final User u = new UserDetailsImpl("dev1@ekolandia.cz", "password", "6ef7a5723d302c64d65d02f5c6662dc61bebec930ea300620bc9ff7f12b49fda11e2e57933526fd3b73840b0693a7cf4abe05fbfe16223d4bd42eb3043cf5d24", list);
 		final String password = passwordEncoder.encodePassword("password", saltSource.getSalt(u));
 		final org.cuisine.entity.UserAuthentication user = userRepository.findOne(u.getUsername());
 		assertEquals(password, user.getPassword());
-	    final Authentication authentication = new UsernamePasswordAuthenticationToken("dev1@cuisine.cz", "password");
+	    final Authentication authentication = new UsernamePasswordAuthenticationToken("dev1@ekolandia.cz", "password");
 	    try {
 	    	authenticationManager.authenticate(authentication);
 	    } catch (final BadCredentialsException e) {
