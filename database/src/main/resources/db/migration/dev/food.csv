@@ -1,0 +1,6 @@
+ID,FOOD_TYPE,NAME,DESCRIPTION,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON
+1,SOUP,"Krémová špenátová",NULL,dev1@ekolandia.cz,2014-01-01 00:00:00,dev1@ekolandia.cz,2014-01-01 00:00:00
+2,MEAL,"Z Polabských luhů a hájů","Cous cous s kousky krůtího masa, kořenovou zeleninou, provoněný čerstvými bylinkami",dev1@ekolandia.cz,2014-01-01 00:00:00,dev1@ekolandia.cz,2014-01-01 00:00:00
+3,MEAL,"Tradiční domácí kuchyně","Domácí jemná sekaná s masem a kapustou, máslová bramborová kaše",dev1@ekolandia.cz,2014-01-01 00:00:00,dev1@ekolandia.cz,2014-01-01 00:00:00
+4,MEAL,"Exklusive","Tagliatelle se smetanovou omáčkou, s kousky sušených rajčat nakládaných v olivovém oleji a orestovanými nudličkami vepřové panenky",dev1@ekolandia.cz,2014-01-01 00:00:00,dev1@ekolandia.cz,2014-01-01 00:00:00
+5,MEAL,"Salát","Čekankové puky s restovanými kuřecími nudličkami, směs trhaných salátů s čekankovými puky, medovo - ořechovou zálivkou, kuřecími nudličkami, koktejlovými rajčaty, smaženými mandlemi a čerstvou houskou 300g",dev1@ekolandia.cz,2014-01-01 00:00:00,dev1@ekolandia.cz,2014-01-01 00:00:00

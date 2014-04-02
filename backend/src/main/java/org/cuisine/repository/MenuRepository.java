@@ -18,16 +18,19 @@
  */
 package org.cuisine.repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.util.Date;
+import java.util.List;
+
+import org.cuisine.entity.Menu;
+import org.cuisine.repository.base.BaseJpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public class TaskRepositoryImpl implements TaskRepositoryCustom {
+public interface MenuRepository extends BaseJpaRepository<Menu, Long> {
 
-	@PersistenceContext
-	private EntityManager entityManager;
-	
+	@Query("SELECT m FROM Menu m WHERE m.forDate BETWEEN ?1 and ?2")
+	List<Menu> findMenuBetwwenDates(final Date from, final Date to);
 }

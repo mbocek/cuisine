@@ -62,7 +62,7 @@ public class UserServiceTest extends ServiceUnitTest {
 	public void testLoadUserByUsername() {
 		final UserDetails user = userService.loadUserByUsername("dev1@ekolandia.cz");
 		assertNotNull(user);
-		assertTrue(user.getAuthorities().size() == 2);
+		assertTrue(user.getAuthorities().size() == 3);
 		final ArrayList<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 		list.add(new SimpleGrantedAuthority(Role.ROLE_USER.name()));
 		assertTrue(user.getAuthorities().containsAll(list));

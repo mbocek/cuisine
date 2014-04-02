@@ -16,13 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cuisine.repository;
+package org.cuisine.api;
 
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
+import org.cuisine.api.dto.OrderDTO;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-public interface TaskRepositoryCustom {
-	
+@Validated
+public interface OrderService {
+
+	List<OrderDTO> findWithShift(@NotNull final Integer shift);
 }

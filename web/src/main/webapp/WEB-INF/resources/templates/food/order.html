@@ -1,4 +1,4 @@
-<div class="well" data-ng-conroller="OrderController" data-ng-init="load()">
+<div class="well" data-ng-conroller="OrderController" data-ng-init="shift=0; load(shift)">
 	<form class="form-horizontal" data-ng-submit="order()">
 		<ul class="list-unstyled" data-ng-repeat="order in orders">
 			<li><h4 class="menu-date">{{ order.date | date : 'EEEE'}}<small>{{ order.date | date : 'dd.MM.yyyy'}}</small></h4>

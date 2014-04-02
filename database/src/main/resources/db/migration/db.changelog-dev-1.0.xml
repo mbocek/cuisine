@@ -60,4 +60,13 @@
 			<delete tableName="NOTIFICATION_QUEUE_TO"/>
 		</rollback>
 	</changeSet>
+	
+	<changeSet id="load: food" author="mbocek">
+		<comment>Load food data</comment>
+		<loadData tableName="FOOD" file="db/migration/dev/food.csv">
+			<column name="TYPE" type="STRING"/>
+			<column name="CREATED_BY" type="STRING"/>
+			<column name="CREATED_ON" type="DATE"/>
+		</loadData>
+	</changeSet>	
 </databaseChangeLog>

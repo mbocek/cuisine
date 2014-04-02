@@ -62,4 +62,7 @@ public class Food extends BaseEntity implements Serializable {
 	@Column(name = "NAME", nullable = false, length = 256)
 	private String name;
 	
+	@Getter @Setter
+	@Column(name = "DESCRIPTION", nullable = false, length = 2000)
+	private String description;
 }

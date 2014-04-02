@@ -16,13 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cuisine.entity;
+package org.cuisine.api.dto;
+
+import lombok.ToString;
 
 /**
- * Role list.
  * @author Michal Bocek
  * @since 1.0.0
  */
-public enum Role {
-	ROLE_USER, ROLE_KINDERGARTEN, ROLE_ADMINISTRATOR;
+@ToString
+public class OrderDTO {
+
 }

@@ -51,19 +51,19 @@ controllers.controller('OrderController', [ '$rootScope', '$scope', '$http', 'or
    		function($rootScope, $scope, $http, order, $log, $location) {
    			
    			/**
-   			 * Login to application
+   			 * Load orders
    			 */
    			$scope.load = function() {
    				$log.log("Loading orders");
-   				order.load(
+   				order.load($scope.shift, 
    					function(data, status) {
    						$log.log("Load order data! data: %o, status: %o", data, status);
 						$scope.order = data;
    					}, function(data, status) {
-   						$log.log("Order data load error! data: %o, status: %o", data, status);
+   						$log.error("Order data load error! data: %o, status: %o", data, status);
    					});
    			};
-   		} ]);
+		} ]);
 
 /**
  * Header controller.

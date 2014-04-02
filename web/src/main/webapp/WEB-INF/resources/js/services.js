@@ -27,9 +27,9 @@ services.service('user', ['$rootScope', '$http', '$log', function($rootScope, $h
 
 services.service('order', ['$rootScope', '$http', '$log', function($rootScope, $http, $log) {
 	
-	this.load = function(success, error) {
-		$log.debug("Load order data");
-		return $http.get($rootScope.appBasePath + "api/order").success(success).error(error);
+	this.load = function(shift, success, error) {
+		$log.debug("Load order data with shift: %s", shift);
+		return $http.get($rootScope.appBasePath + "api/order", {params: {shift:shift}}).success(success).error(error);
 	};
 }]);
 

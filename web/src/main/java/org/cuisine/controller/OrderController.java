@@ -18,9 +18,14 @@
  */
 package org.cuisine.controller;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
 import lombok.extern.slf4j.Slf4j;
 
-import org.cuisine.api.dto.UserDTO;
+import org.cuisine.api.OrderService;
+import org.cuisine.api.dto.OrderDTO;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +41,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/api/order")
 public class OrderController {
 
+	@Inject
+	private OrderService orderService;
+	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody public UserDTO getOrders() {
-		return new UserDTO();
+	@ResponseBody public List<OrderDTO> getOrders(final Integer shift) {
+		return orderService.findWithShift(shift);
 	}
 }
