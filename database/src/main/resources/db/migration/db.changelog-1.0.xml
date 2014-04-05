@@ -309,9 +309,6 @@
 			<column name="UPDATED_ON" type="DATETIME" remarks="Date when record was updated">
 				<constraints nullable="false" />
 			</column>
-			<column name="FOOD_TYPE" type="VARCHAR(50)" remarks="Type of food">
-				<constraints nullable="false" />
-			</column>
 			<column name="NAME" type="VARCHAR(256)" remarks="Name of food">
 				<constraints nullable="false" />
 			</column>

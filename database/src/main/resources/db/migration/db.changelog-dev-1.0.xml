@@ -4,6 +4,9 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
+	<property name="now" value="now()" dbms="mysql" />
+	<property name="now" value="now()" dbms="hsql" />
+
 	<changeSet id="load: users" author="mbocek">
 		<comment>Load initial data</comment>
 		<loadData tableName="USER_AUTHENTICATION" file="db/migration/dev/user_authentication.csv">
@@ -64,9 +67,47 @@
 	<changeSet id="load: food" author="mbocek">
 		<comment>Load food data</comment>
 		<loadData tableName="FOOD" file="db/migration/dev/food.csv">
-			<column name="TYPE" type="STRING"/>
+			<column name="ID" type="NUMERIC"/>
+			<column name="FOOD_TYPE" type="STRING"/>
+			<column name="NAME" type="STRING"/>
+			<column name="DESCRIPTION" type="STRING"/>
+
 			<column name="CREATED_BY" type="STRING"/>
 			<column name="CREATED_ON" type="DATE"/>
+			<column name="UPDATED_BY" type="STRING"/>
+			<column name="UPDATED_ON" type="DATE"/>
 		</loadData>
-	</changeSet>	
+		<rollback>
+			<delete tableName="FOOD"/>
+		</rollback>
+	</changeSet>
+	
+	<changeSet id="load: menu" author="mbocek">
+		<comment>Load menu data</comment>
+		<loadData tableName="MENU" file="db/migration/dev/menu.csv">
+			<column name="ID" type="NUMERIC"/>
+			<column name="NAME" type="STRING"/>
+			<column name="FOR_DATE" type="DATE"/>
+			<column name="PRICE" type="NUMERIC"/>
+			
+			<column name="CREATED_BY" type="STRING"/>
+			<column name="CREATED_ON" type="DATE"/>
+			<column name="UPDATED_BY" type="STRING"/>
+			<column name="UPDATED_ON" type="DATE"/>
+		</loadData>
+		<rollback>
+			<delete tableName="MENU"/>
+		</rollback>
+	</changeSet>
+
+	<changeSet id="load: menu_food" author="mbocek">
+		<comment>Load menu food data</comment>
+		<loadData tableName="MENU_FOOD" file="db/migration/dev/menu_food.csv">
+			<column name="MENU_ID" type="NUMERIC"/>
+			<column name="FOOD_ID" type="NUMERIC"/>
+		</loadData>
+		<rollback>
+			<delete tableName="MENU_FOOD"/>
+		</rollback>
+	</changeSet>
 </databaseChangeLog>
