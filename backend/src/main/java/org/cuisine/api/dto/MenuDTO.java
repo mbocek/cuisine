@@ -18,8 +18,7 @@
  */
 package org.cuisine.api.dto;
 
-import java.util.Collection;
-import java.util.Date;
+import java.math.BigDecimal;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -30,13 +29,24 @@ import lombok.ToString;
  * @since 1.0.0
  */
 @ToString
-public class OrderDTO {
+public class MenuDTO {
 
 	@Getter @Setter
 	private Long id;
 	
 	@Getter @Setter
-	private Date forDate;
+	private String foodType;
 	
-	private Collection<MenuDTO> menu;
+	@Getter @Setter
+	private String name;
+
+	@Getter @Setter
+	private String description;
+	
+	@Getter @Setter
+	private BigDecimal price;
+	
+	@Getter @Setter
+	private Integer amount;
+	
 }

@@ -363,7 +363,7 @@
 	</changeSet>
 
  	<changeSet id="create: food order table" author="mbocek">
-		<createTable tableName="FOOD_ORDER" remarks="food order table">
+		<createTable tableName="ORDER_MENU" remarks="food order table">
 			<column autoIncrement="true" name="ID" type="BIGINT" remarks="Primary key">
 				<constraints nullable="false" primaryKey="true" primaryKeyName="PK_FOOD_ORDER" />
 			</column>
@@ -399,20 +399,20 @@
 	</changeSet>
 
 	<changeSet id="create: food order foreignkey" author="mbocek">
-		<addForeignKeyConstraint constraintName="FK_FOOD_ORDER_CREATED_BY"
-			baseTableName="FOOD_ORDER" baseColumnNames="CREATED_BY"
+		<addForeignKeyConstraint constraintName="FK_ORDER_MENU_CREATED_BY"
+			baseTableName="ORDER_MENU" baseColumnNames="CREATED_BY"
 			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
 
-		<addForeignKeyConstraint constraintName="FK_FOOD_ORDER_UPDATED_BY"
-			baseTableName="FOOD_ORDER" baseColumnNames="UPDATED_BY"
+		<addForeignKeyConstraint constraintName="FK_ORDER_MENU_UPDATED_BY"
+			baseTableName="ORDER_MENU" baseColumnNames="UPDATED_BY"
 			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
 
-		<addForeignKeyConstraint constraintName="FK_FOOD_ORDER_ORDER_MAKER"
-			baseTableName="FOOD_ORDER" baseColumnNames="ORDER_MAKER"
+		<addForeignKeyConstraint constraintName="FK_ORDER_MENU_ORDER_MAKER"
+			baseTableName="ORDER_MENU" baseColumnNames="ORDER_MAKER"
 			referencedTableName="USER_INFORMATION" referencedColumnNames="USER_NAME" />
 
-		<addForeignKeyConstraint constraintName="FK_FOOD_ORDER_MENU"
-			baseTableName="FOOD_ORDER" baseColumnNames="MENU_ID"
+		<addForeignKeyConstraint constraintName="FK_ORDER_MENU_MENU"
+			baseTableName="ORDER_MENU" baseColumnNames="MENU_ID"
 			referencedTableName="MENU" referencedColumnNames="ID" />
 	</changeSet>
 </databaseChangeLog>

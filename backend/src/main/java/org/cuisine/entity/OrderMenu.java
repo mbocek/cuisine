@@ -43,9 +43,9 @@ import org.cuisine.api.Constants;
  */
 @ToString
 @Entity
-@Table(name = "FOOD_ORDER")
+@Table(name = "ORDER_MENU")
 @NoArgsConstructor
-public class FoodOrder extends BaseEntity implements Serializable {
+public class OrderMenu extends BaseEntity implements Serializable {
 	
 	private static final long serialVersionUID = Constants.VERSION;
 

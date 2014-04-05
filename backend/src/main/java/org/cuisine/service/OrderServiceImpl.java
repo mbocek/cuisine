@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.cuisine.api.OrderService;
 import org.cuisine.api.dto.OrderDTO;
+import org.cuisine.entity.Menu;
 import org.cuisine.repository.MenuRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +49,8 @@ public class OrderServiceImpl implements OrderService {
 	public List<OrderDTO> findWithShift(final Integer shift) {
 	    final Date dateOfFirstDayInWeek = getDateOfFirstDayInWeek(shift);
 	    final Date dateOfLastDayInWeek = getDateOfLastDayInWeek(shift);
+	    
+	    final List<Menu> menus = menuRepository.findMenuBetweenDates(dateOfFirstDayInWeek, dateOfLastDayInWeek);
 	    
 	    
 		return null;

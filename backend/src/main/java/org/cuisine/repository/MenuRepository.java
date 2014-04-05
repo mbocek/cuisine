@@ -31,6 +31,6 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface MenuRepository extends BaseJpaRepository<Menu, Long> {
 
-	@Query("SELECT m FROM Menu m WHERE m.forDate BETWEEN ?1 and ?2")
-	List<Menu> findMenuBetwwenDates(final Date from, final Date to);
+	@Query("SELECT m FROM Menu m WHERE m.forDate BETWEEN ?1 and ?2 ORDER BY m.forDate")
+	List<Menu> findMenuBetweenDates(final Date from, final Date to);
 }
