@@ -58,7 +58,7 @@ controllers.controller('OrderController', [ '$rootScope', '$scope', '$http', 'or
    				order.load($scope.shift, 
    					function(data, status) {
    						$log.log("Load order data! data: %o, status: %o", data, status);
-						$scope.order = data;
+						$scope.orders = data;
    					}, function(data, status) {
    						$log.error("Order data load error! data: %o, status: %o", data, status);
    					});

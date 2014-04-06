@@ -15,6 +15,10 @@
 				<class-a>org.cuisine.entity.Invitation</class-a>
 				<class-b>org.cuisine.api.dto.InvitationDTO</class-b>
 			</converter>
+			<converter type="org.cuisine.utility.converter.FoodConverter">
+				<class-a>org.cuisine.entity.Food</class-a>
+				<class-b>org.cuisine.api.dto.FoodDTO</class-b>
+			</converter>
 		</custom-converters>
 	</configuration>
 </mappings> 

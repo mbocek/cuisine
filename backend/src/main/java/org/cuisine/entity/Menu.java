@@ -73,7 +73,7 @@ public class Menu extends BaseEntity implements Serializable {
 		uniqueConstraints = { @UniqueConstraint(columnNames = { "MENU_ID", "FOOD_ID" }) })
 	private final List<Food> foods = new ArrayList<Food>();
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "FOR_DATE", nullable = false)
 	private Date forDate;
 

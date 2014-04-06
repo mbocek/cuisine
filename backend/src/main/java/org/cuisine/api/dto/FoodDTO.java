@@ -18,11 +18,6 @@
  */
 package org.cuisine.api.dto;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -32,27 +27,14 @@ import lombok.ToString;
  * @since 1.0.0
  */
 @ToString
-public class MenuDTO {
+public class FoodDTO {
 
-	@Getter @Setter
-	private Long id;
-	
 	@Getter @Setter
 	private String name;
 
 	@Getter @Setter
-	private BigDecimal price;
-	
-	@Getter @Setter
-	private Integer amount;
+	private String description;
 
-	private Collection<FoodDTO> foods = new ArrayList<FoodDTO>();
-	
-	public void add(final FoodDTO food) {
-		foods.add(food);
-	}
-	
-	public Collection<FoodDTO> getFoods() {
-		return Collections.unmodifiableCollection(foods);
-	}
+	@Getter @Setter
+	private String type;
 }

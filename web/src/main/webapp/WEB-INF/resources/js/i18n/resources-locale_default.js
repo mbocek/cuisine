@@ -1,5 +1,35 @@
 [
 	{
+	    "key":"_STARTER_",
+	    "value":"Starter",
+	    "description":""
+	},
+	{
+	    "key":"_SOUP_",
+	    "value":"Soup",
+	    "description":""
+	},
+	{
+	    "key":"_MEAL_",
+	    "value":"Meal",
+	    "description":""
+	},
+	{
+	    "key":"_DESERT_",
+	    "value":"Desert",
+	    "description":""
+	},
+	{
+	    "key":"_DRINK_",
+	    "value":"Drink",
+	    "description":""
+	},
+	{
+	    "key":"_SNACK_",
+	    "value":"Snack",
+	    "description":""
+	},
+	{
 	    "key":"_AdultPortionCount_",
 	    "value":"Adult portion",
 	    "description":""

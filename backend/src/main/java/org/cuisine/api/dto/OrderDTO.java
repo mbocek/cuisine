@@ -18,9 +18,12 @@
  */
 package org.cuisine.api.dto;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -30,13 +33,24 @@ import lombok.ToString;
  * @since 1.0.0
  */
 @ToString
+@EqualsAndHashCode(of = { "forDate" })
 public class OrderDTO {
 
 	@Getter @Setter
-	private Long id;
-	
-	@Getter @Setter
 	private Date forDate;
 	
-	private Collection<MenuDTO> menu;
+	private Collection<MenuDTO> menus = new ArrayList<MenuDTO>();
+	
+	public OrderDTO(final Date forDate) {
+		this.forDate = forDate;
+	}
+	
+	public void addMenu(final MenuDTO menuDTO) {
+		menus.add(menuDTO);
+	}
+	
+	public Collection<MenuDTO> getMenus() {
+		return Collections.unmodifiableCollection(menus);
+	}	
+	
 }

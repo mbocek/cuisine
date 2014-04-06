@@ -16,43 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cuisine.api.dto;
+package org.cuisine.repository;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import org.cuisine.entity.OrderMenu;
+import org.cuisine.repository.base.BaseJpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@ToString
-public class MenuDTO {
+public interface OrderMenuRepository extends BaseJpaRepository<OrderMenu, Long> {
 
-	@Getter @Setter
-	private Long id;
-	
-	@Getter @Setter
-	private String name;
-
-	@Getter @Setter
-	private BigDecimal price;
-	
-	@Getter @Setter
-	private Integer amount;
-
-	private Collection<FoodDTO> foods = new ArrayList<FoodDTO>();
-	
-	public void add(final FoodDTO food) {
-		foods.add(food);
-	}
-	
-	public Collection<FoodDTO> getFoods() {
-		return Collections.unmodifiableCollection(foods);
-	}
+	@Query("SELECT o FROM OrderMenu o WHERE o.menu.forDate BETWEEN ?1 and ?2 ORDER BY o.menu.forDate")
+	List<OrderMenu> findOrderMenuBetweenDates(final Date from, final Date to);
 }
