@@ -97,6 +97,7 @@
 				<security:intercept-url pattern="/api/user/logout" access="permitAll" />
 				<security:intercept-url pattern="/api/user/password" access="permitAll" method="POST"/>
 				<security:intercept-url pattern="/app-info" access="hasRole('ROLE_ADMINISTRATOR')" />
+				<security:intercept-url pattern="/app-info2" access="hasRole('ROLE_ADMINISTRATO')" />
 				<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />			
 			</security:filter-security-metadata-source>
 		</property>
@@ -104,7 +105,8 @@
 		<property name="accessDecisionManager" ref="accessDecisionManager" />
 	</bean>
 
-	<bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
+	<!--<bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" /> -->
+	<bean id="loginUrlAuthenticationEntryPoint" class="org.cuisine.web.utils.Http401UnauthenticatedEntryPoint" />
 
 	<alias name="filterChainProxy" alias="springSecurityFilterChain"/>
 </beans>
