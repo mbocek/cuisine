@@ -1,12 +1,12 @@
 @CHARSET "UTF-8";
 
 .menu-date {
-	border-bottom: 2px solid black;
+	border-bottom: 2px solid #E3E3E3;
 }
 
 .menu-name {
 	margin-top: 15px;
-	border-bottom: 2px solid black;
+	border-bottom: 2px solid #E3E3E3;
 }
 
 .list-menu {

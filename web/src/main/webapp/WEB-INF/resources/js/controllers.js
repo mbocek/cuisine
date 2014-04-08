@@ -47,8 +47,8 @@ controllers.controller('UserController', [ '$rootScope', '$scope', '$http', 'use
 /**
  * Order controller.
  */
-controllers.controller('OrderController', [ '$rootScope', '$scope', '$http', 'order', '$log', '$location',    
-   		function($rootScope, $scope, $http, order, $log, $location) {
+controllers.controller('OrderController', [ '$rootScope', '$scope', '$http', 'order', '$log', '$location', 'localize',    
+   		function($rootScope, $scope, $http, order, $log, $location, localize) {
    			
    			/**
    			 * Load orders

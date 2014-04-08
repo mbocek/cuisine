@@ -7,7 +7,7 @@
 						<div class="row">
 							<div class="col-sm-8">
 								<dl class="dl-horizontal" data-ng-repeat="food in menu.foods">
-									<dt>{{food.type | i18n}}</dt>
+									<dt>{{"_" + food.type + "_" | i18n}}</dt>
 									<dd>
 										{{food.name}}<br/>
 										<small>{{food.description}}</small>
