@@ -31,5 +31,11 @@ services.service('order', ['$rootScope', '$http', '$log', function($rootScope, $
 		$log.debug("Load order data with shift: %s", shift);
 		return $http.get($rootScope.appBasePath + "api/order", {params: {shift:shift}}).success(success).error(error);
 	};
+	
+	this.store = function(orders, success, error) {
+		$log.debug("Store order data: %s", orders);
+		return $http.post($rootScope.appBasePath + "api/order", {orders: orders}).success(success).error(error);
+	};
+	
 }]);
 

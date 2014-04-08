@@ -63,6 +63,21 @@ controllers.controller('OrderController', [ '$rootScope', '$scope', '$http', 'or
    						$log.error("Order data load error! data: %o, status: %o", data, status);
    					});
    			};
+   			
+   			/**
+   			 * Store orders
+   			 */
+   			$scope.store = function() {
+   				$log.log("Loading orders");
+   				order.store($scope.orders, 
+   					function(data, status) {
+   						$log.log("Store order data! data: %o, status: %o", data, status);
+						$scope.orders = data;
+   					}, function(data, status) {
+   						$log.error("Order data store error! data: %o, status: %o", data, status);
+   					});
+   			};
+   			
 		} ]);
 
 /**
