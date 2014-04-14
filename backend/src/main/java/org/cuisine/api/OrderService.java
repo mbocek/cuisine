@@ -33,4 +33,5 @@ import org.springframework.validation.annotation.Validated;
 public interface OrderService {
 
 	List<OrderDTO> findWithShift(@NotNull final Integer shift);
+	void store(final List<OrderDTO> orders);
 }

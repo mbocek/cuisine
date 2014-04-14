@@ -20,7 +20,6 @@ package org.cuisine.api.dto;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 
 import lombok.EqualsAndHashCode;
@@ -41,7 +40,7 @@ public class OrderDTO {
 	@Getter @Setter
 	private Date forDate;
 	
-	@Setter
+	@Getter @Setter
 	private Collection<MenuDTO> menus = new ArrayList<MenuDTO>();
 	
 	public OrderDTO(final Date forDate) {
@@ -51,9 +50,4 @@ public class OrderDTO {
 	public void addMenu(final MenuDTO menuDTO) {
 		menus.add(menuDTO);
 	}
-	
-	public Collection<MenuDTO> getMenus() {
-		return Collections.unmodifiableCollection(menus);
-	}	
-	
 }

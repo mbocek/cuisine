@@ -21,7 +21,10 @@ package org.cuisine.service;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -36,7 +39,9 @@ import org.cuisine.entity.Menu;
 import org.cuisine.entity.OrderMenu;
 import org.cuisine.repository.MenuRepository;
 import org.cuisine.repository.OrderMenuRepository;
+import org.cuisine.repository.UserInformationRepository;
 import org.cuisine.utility.DTOConverter;
+import org.cuisine.utility.SecurityUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +56,9 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Inject
 	private MenuRepository menuRepository;
+
+	@Inject
+	private UserInformationRepository userInformationRepository;
 
 	@Inject
 	private OrderMenuRepository orderMenuRepository;
@@ -77,14 +85,28 @@ public class OrderServiceImpl implements OrderService {
 	        final MenuDTO menuDTO = new MenuDTO();
 	        menuDTO.setId(menu.getId());
 	        menuDTO.setName(menu.getName());
+	        menuDTO.setAmountAdult(0);
+	        menuDTO.setAmountChild(0);
+	        menuDTO.setPrice(menu.getPrice());
 	        for (final Food food : menu.getFoods()) {	
 		        menuDTO.add(DTOConverter.convert(food, FoodDTO.class));
 			}
 	        orderDTO.addMenu(menuDTO);
-	        
-	        // TODO: update orders
 		}
-	    
+
+		// update order menu
+        for (final OrderMenu order : orders) {
+			for (final OrderDTO orderDTO : ordersDTO) {
+				for (final MenuDTO menuDTO : orderDTO.getMenus()) {
+					if (orderDTO.getForDate().equals(order.getMenu().getForDate()) 
+						&& menuDTO.getId().equals(order.getMenu().getId())) {
+						menuDTO.setAmountAdult(order.getAdultPortionAmount());	
+						menuDTO.setAmountChild(order.getChildPortionAmount());	
+					}
+				}
+			}			
+		}
+			    
 		return ordersDTO;
 	}
 
@@ -110,5 +132,70 @@ public class OrderServiceImpl implements OrderService {
 	    calendar.set(Calendar.MILLISECOND, 999);
 	    log.debug("Date of Last day in week: {}", calendar.getTime());
 	    return calendar.getTime();
+	}
+
+	@Override
+	public void store(final List<OrderDTO> orders) {
+		final Set<Date> dates = new HashSet<Date>();
+		// all dates and cleanup on orders
+		for (final OrderDTO order : orders) {
+			final Iterator<MenuDTO> it = order.getMenus().iterator();
+			while (it.hasNext()) {
+				final MenuDTO menu = it.next();
+				if (!((menu.getAmountAdult() != null && menu.getAmountAdult() > 0)
+						|| (menu.getAmountChild() != null && menu.getAmountChild() > 0))) {
+					it.remove();
+				}
+				dates.add(order.getForDate());
+			}
+		}
+
+		log.info("Dates: {}", dates);
+
+		final List<OrderMenu> userOrders;
+		if (dates.isEmpty()) {
+			userOrders = new ArrayList<OrderMenu>();
+		} else {
+			userOrders = orderMenuRepository.findByOrderMakerAndDates(SecurityUtil.getCurrentSignedInUsername(), dates);
+		}
+		
+		log.info("Orders: {}", userOrders);
+		// update orders
+		final Iterator<OrderMenu> it = userOrders.iterator();
+		while(it.hasNext()) {
+			final OrderMenu orderMenu = it.next();
+			boolean contains = false;
+			for (final OrderDTO order : orders) {
+				final Iterator<MenuDTO> itMenu = order.getMenus().iterator();
+				while (itMenu.hasNext()) {
+					final MenuDTO menu = itMenu.next();
+					if (orderMenu.getMenu().getForDate().equals(order.getForDate())
+							&& orderMenu.getMenu().getId().equals(menu.getId())) {
+						orderMenu.setAdultPortionAmount(menu.getAmountAdult());
+						orderMenu.setChildPortionAmount(menu.getAmountChild());
+						itMenu.remove();
+						contains = true;
+					}
+				}
+			}
+			
+			if (!contains) {
+				it.remove();
+			}
+		}
+		
+		// add new orders
+		for (final OrderDTO order : orders) {
+			for (final MenuDTO menu : order.getMenus()) {
+				final OrderMenu orderMenu = new OrderMenu();
+				orderMenu.setAdultPortionAmount(menu.getAmountAdult());
+				orderMenu.setChildPortionAmount(menu.getAmountChild());
+				orderMenu.setMenu(menuRepository.read(menu.getId()));
+				orderMenu.setOrderMaker(userInformationRepository.read(SecurityUtil.getCurrentSignedInUsername()));
+				userOrders.add(orderMenu);
+			}
+		}
+		
+		orderMenuRepository.save(userOrders);
 	}
 }

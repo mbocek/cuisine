@@ -4,9 +4,6 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog 
 						http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
 
-	<property name="now" value="now()" dbms="mysql" />
-	<property name="now" value="now()" dbms="hsql" />
-
 	<changeSet id="load: users" author="mbocek">
 		<comment>Load initial data</comment>
 		<loadData tableName="USER_AUTHENTICATION" file="db/migration/dev/user_authentication.csv">

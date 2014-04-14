@@ -56,7 +56,7 @@ public class OrderController {
 	@ResponseStatus(value = HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public void store(@RequestBody final OrderList orders) {
-		log.info("OrderList: {}", orders);
+		orderService.store(orders.getOrders());
 	}
 	
 }

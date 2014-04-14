@@ -20,6 +20,7 @@ package org.cuisine.repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.cuisine.entity.OrderMenu;
 import org.cuisine.repository.base.BaseJpaRepository;
@@ -33,4 +34,7 @@ public interface OrderMenuRepository extends BaseJpaRepository<OrderMenu, Long> 
 
 	@Query("SELECT o FROM OrderMenu o WHERE o.menu.forDate BETWEEN ?1 and ?2 ORDER BY o.menu.forDate")
 	List<OrderMenu> findOrderMenuBetweenDates(final Date from, final Date to);
+
+	@Query("SELECT o FROM OrderMenu o WHERE o.orderMaker.username = ?1 and o.menu.forDate in ?2 ORDER BY o.menu.forDate")
+	List<OrderMenu> findByOrderMakerAndDates(final String orderMaker, final Set<Date> forDates);
 }

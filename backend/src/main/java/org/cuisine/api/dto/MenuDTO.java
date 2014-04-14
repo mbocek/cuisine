@@ -44,7 +44,10 @@ public class MenuDTO {
 	private BigDecimal price;
 	
 	@Getter @Setter
-	private Integer amount;
+	private Integer amountAdult;
+
+	@Getter @Setter
+	private Integer amountChild;
 
 	private Collection<FoodDTO> foods = new ArrayList<FoodDTO>();
 	
