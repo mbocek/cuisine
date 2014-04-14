@@ -69,7 +69,8 @@ public class OrderServiceImpl implements OrderService {
 	    final Date dateOfLastDayInWeek = getDateOfLastDayInWeek(shift);
 	    
 	    // for enrichment structure
-	    final List<OrderMenu> orders = orderMenuRepository.findOrderMenuBetweenDates(dateOfFirstDayInWeek, dateOfLastDayInWeek);
+		final List<OrderMenu> orders = orderMenuRepository.findOrderMenuBetweenDates(
+				SecurityUtil.getCurrentSignedInUsername(), dateOfFirstDayInWeek, dateOfLastDayInWeek);
  	    final List<Menu> menus = menuRepository.findMenuBetweenDates(dateOfFirstDayInWeek, dateOfLastDayInWeek);
 	    
 	    final List<OrderDTO> ordersDTO = new ArrayList<OrderDTO>(); 

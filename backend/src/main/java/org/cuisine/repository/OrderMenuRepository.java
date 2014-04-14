@@ -32,8 +32,8 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface OrderMenuRepository extends BaseJpaRepository<OrderMenu, Long> {
 
-	@Query("SELECT o FROM OrderMenu o WHERE o.menu.forDate BETWEEN ?1 and ?2 ORDER BY o.menu.forDate")
-	List<OrderMenu> findOrderMenuBetweenDates(final Date from, final Date to);
+	@Query("SELECT o FROM OrderMenu o WHERE o.orderMaker.username = ?1 and o.menu.forDate BETWEEN ?2 and ?3 ORDER BY o.menu.forDate")
+	List<OrderMenu> findOrderMenuBetweenDates(final String orderMaker, final Date from, final Date to);
 
 	@Query("SELECT o FROM OrderMenu o WHERE o.orderMaker.username = ?1 and o.menu.forDate in ?2 ORDER BY o.menu.forDate")
 	List<OrderMenu> findByOrderMakerAndDates(final String orderMaker, final Set<Date> forDates);
