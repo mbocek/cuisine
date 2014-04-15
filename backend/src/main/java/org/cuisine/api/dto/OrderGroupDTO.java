@@ -18,12 +18,13 @@
  */
 package org.cuisine.api.dto;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Date;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -32,30 +33,21 @@ import lombok.ToString;
  * @since 1.0.0
  */
 @ToString
-public class MenuDTO {
+@EqualsAndHashCode(of = { "forDate" })
+@NoArgsConstructor
+public class OrderGroupDTO {
 
 	@Getter @Setter
-	private Long id;
+	private Date forDate;
 	
 	@Getter @Setter
-	private String name;
-
-	@Getter @Setter
-	private BigDecimal price;
+	private Collection<OrderDTO> orders = new ArrayList<OrderDTO>();
 	
-	@Getter @Setter
-	private Integer amountAdult;
-
-	@Getter @Setter
-	private Integer amountChild;
-
-	private Collection<FoodDTO> foods = new ArrayList<FoodDTO>();
-	
-	public void add(final FoodDTO food) {
-		foods.add(food);
+	public OrderGroupDTO(final Date forDate) {
+		this.forDate = forDate;
 	}
 	
-	public Collection<FoodDTO> getFoods() {
-		return Collections.unmodifiableCollection(foods);
+	public void addOrder(final OrderDTO menuDTO) {
+		orders.add(menuDTO);
 	}
 }

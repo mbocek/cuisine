@@ -24,7 +24,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import org.cuisine.api.dto.OrderDTO;
+import org.cuisine.api.dto.OrderGroupDTO;
 
 /**
  * @author Michal Bocek
@@ -34,5 +34,5 @@ import org.cuisine.api.dto.OrderDTO;
 public class OrderList {
 	
 	@Getter @Setter
-	private List<OrderDTO> orders;
+	private List<OrderGroupDTO> orders;
 }

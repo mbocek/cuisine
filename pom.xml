@@ -384,10 +384,25 @@
 				<version>7.0.0pre2</version>
 				<scope>provided</scope>
 			</dependency>			
+<!-- 			<dependency> -->
+<!-- 				<groupId>org.codehaus.jackson</groupId> -->
+<!-- 				<artifactId>jackson-mapper-asl</artifactId> -->
+<!-- 				<version>1.9.12</version> -->
+<!-- 			</dependency> -->
 			<dependency>
-				<groupId>org.codehaus.jackson</groupId>
-				<artifactId>jackson-mapper-asl</artifactId>
-				<version>1.9.12</version>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${com.fasterxml.jackson-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${com.fasterxml.jackson-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${com.fasterxml.jackson-version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.google.guava</groupId>
@@ -588,6 +603,8 @@
 		<cglib.version>3.0</cglib.version>
 		<slf4j.version>1.7.2</slf4j.version>
 		<spring-data.version>1.3.0.RELEASE</spring-data.version>
+		<com.fasterxml.jackson-version>2.3.3</com.fasterxml.jackson-version>
+		
 		<sonar.host.url>https://soso-gateway.dyndns.org/sonar</sonar.host.url>
 		<target.directory>target</target.directory>
 		

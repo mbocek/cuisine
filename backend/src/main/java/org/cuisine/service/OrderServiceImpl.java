@@ -32,8 +32,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.cuisine.api.OrderService;
 import org.cuisine.api.dto.FoodDTO;
-import org.cuisine.api.dto.MenuDTO;
 import org.cuisine.api.dto.OrderDTO;
+import org.cuisine.api.dto.OrderGroupDTO;
 import org.cuisine.entity.Food;
 import org.cuisine.entity.Menu;
 import org.cuisine.entity.OrderMenu;
@@ -64,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
 	private OrderMenuRepository orderMenuRepository;
 
 	@Override
-	public List<OrderDTO> findWithShift(final Integer shift) {
+	public List<OrderGroupDTO> findWithShift(final Integer shift) {
 	    final Date dateOfFirstDayInWeek = getDateOfFirstDayInWeek(shift);
 	    final Date dateOfLastDayInWeek = getDateOfLastDayInWeek(shift);
 	    
@@ -73,17 +73,17 @@ public class OrderServiceImpl implements OrderService {
 				SecurityUtil.getCurrentSignedInUsername(), dateOfFirstDayInWeek, dateOfLastDayInWeek);
  	    final List<Menu> menus = menuRepository.findMenuBetweenDates(dateOfFirstDayInWeek, dateOfLastDayInWeek);
 	    
-	    final List<OrderDTO> ordersDTO = new ArrayList<OrderDTO>(); 
+	    final List<OrderGroupDTO> ordersDTO = new ArrayList<OrderGroupDTO>(); 
 	    
 	    for (final Menu menu : menus) {
-			OrderDTO orderDTO = new OrderDTO(menu.getForDate());
+			OrderGroupDTO orderDTO = new OrderGroupDTO(menu.getForDate());
 	    	if (ordersDTO.contains(orderDTO)) {
 	    		orderDTO = ordersDTO.get(ordersDTO.indexOf(orderDTO));  
 	    	} else {
 	    		ordersDTO.add(orderDTO);
 	    	}
 			
-	        final MenuDTO menuDTO = new MenuDTO();
+	        final OrderDTO menuDTO = new OrderDTO();
 	        menuDTO.setId(menu.getId());
 	        menuDTO.setName(menu.getName());
 	        menuDTO.setAmountAdult(0);
@@ -92,13 +92,13 @@ public class OrderServiceImpl implements OrderService {
 	        for (final Food food : menu.getFoods()) {	
 		        menuDTO.add(DTOConverter.convert(food, FoodDTO.class));
 			}
-	        orderDTO.addMenu(menuDTO);
+	        orderDTO.addOrder(menuDTO);
 		}
 
 		// update order menu
         for (final OrderMenu order : orders) {
-			for (final OrderDTO orderDTO : ordersDTO) {
-				for (final MenuDTO menuDTO : orderDTO.getMenus()) {
+			for (final OrderGroupDTO orderDTO : ordersDTO) {
+				for (final OrderDTO menuDTO : orderDTO.getOrders()) {
 					if (orderDTO.getForDate().equals(order.getMenu().getForDate()) 
 						&& menuDTO.getId().equals(order.getMenu().getId())) {
 						menuDTO.setAmountAdult(order.getAdultPortionAmount());	
@@ -136,13 +136,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void store(final List<OrderDTO> orders) {
+	@Transactional
+	public void store(final List<OrderGroupDTO> orderGroups) {
 		final Set<Date> dates = new HashSet<Date>();
 		// all dates and cleanup on orders
-		for (final OrderDTO order : orders) {
-			final Iterator<MenuDTO> it = order.getMenus().iterator();
+		for (final OrderGroupDTO order : orderGroups) {
+			final Iterator<OrderDTO> it = order.getOrders().iterator();
 			while (it.hasNext()) {
-				final MenuDTO menu = it.next();
+				final OrderDTO menu = it.next();
 				if (!((menu.getAmountAdult() != null && menu.getAmountAdult() > 0)
 						|| (menu.getAmountChild() != null && menu.getAmountChild() > 0))) {
 					it.remove();
@@ -165,29 +166,23 @@ public class OrderServiceImpl implements OrderService {
 		final Iterator<OrderMenu> it = userOrders.iterator();
 		while(it.hasNext()) {
 			final OrderMenu orderMenu = it.next();
-			boolean contains = false;
-			for (final OrderDTO order : orders) {
-				final Iterator<MenuDTO> itMenu = order.getMenus().iterator();
+			for (final OrderGroupDTO order : orderGroups) {
+				final Iterator<OrderDTO> itMenu = order.getOrders().iterator();
 				while (itMenu.hasNext()) {
-					final MenuDTO menu = itMenu.next();
+					final OrderDTO menu = itMenu.next();
 					if (orderMenu.getMenu().getForDate().equals(order.getForDate())
 							&& orderMenu.getMenu().getId().equals(menu.getId())) {
 						orderMenu.setAdultPortionAmount(menu.getAmountAdult());
 						orderMenu.setChildPortionAmount(menu.getAmountChild());
 						itMenu.remove();
-						contains = true;
 					}
 				}
-			}
-			
-			if (!contains) {
-				it.remove();
 			}
 		}
 		
 		// add new orders
-		for (final OrderDTO order : orders) {
-			for (final MenuDTO menu : order.getMenus()) {
+		for (final OrderGroupDTO order : orderGroups) {
+			for (final OrderDTO menu : order.getOrders()) {
 				final OrderMenu orderMenu = new OrderMenu();
 				orderMenu.setAdultPortionAmount(menu.getAmountAdult());
 				orderMenu.setChildPortionAmount(menu.getAmountChild());

@@ -92,6 +92,16 @@
 		<level value="INFO" />
 		<appender-ref ref="app-main" />
 	</logger>
+	<!-- log to console sql -->
+	<logger name="org.hibernate.SQL" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="app-main" />
+	</logger>
+
+	<logger name="org.hibernate.type" additivity="false">
+		<level value="trace" />
+		<appender-ref ref="app-main" />
+	</logger>
 	
 	<root>
 		<level value="WARN" />

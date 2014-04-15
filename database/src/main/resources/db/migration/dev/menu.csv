@@ -1,5 +1,9 @@
 ID,NAME,FOR_DATE,PRICE,CREATED_BY,CREATED_ON,UPDATED_BY,UPDATED_ON
-1,MENU 1,now,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
-2,MENU 2,now,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
-3,MENU 3,now,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
-4,MENU 4,now,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
+1,MENU 1,current_date,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
+2,MENU 2,current_date,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
+3,MENU 3,current_date,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
+4,MENU 4,current_date,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
+5,MENU 1,current_date + interval 1 day,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
+6,MENU 2,current_date + interval 1 day,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
+7,MENU 3,current_date + interval 1 day,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now
+8,MENU 4,current_date + interval 1 day,88,dev1@ekolandia.cz,now,dev1@ekolandia.cz,now

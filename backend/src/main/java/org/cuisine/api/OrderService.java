@@ -22,7 +22,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import org.cuisine.api.dto.OrderDTO;
+import org.cuisine.api.dto.OrderGroupDTO;
 import org.springframework.validation.annotation.Validated;
 
 /**
@@ -32,6 +32,6 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public interface OrderService {
 
-	List<OrderDTO> findWithShift(@NotNull final Integer shift);
-	void store(final List<OrderDTO> orders);
+	List<OrderGroupDTO> findWithShift(@NotNull final Integer shift);
+	void store(final List<OrderGroupDTO> orders);
 }

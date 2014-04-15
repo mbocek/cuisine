@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import org.cuisine.api.OrderService;
-import org.cuisine.api.dto.OrderDTO;
+import org.cuisine.api.dto.OrderGroupDTO;
 import org.cuisine.controller.json.OrderList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,7 +49,7 @@ public class OrderController {
 	private OrderService orderService;
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody public List<OrderDTO> getOrders(final Integer shift) {
+	@ResponseBody public List<OrderGroupDTO> getOrders(final Integer shift) {
 		return orderService.findWithShift(shift);
 	}
 	
