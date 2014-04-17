@@ -16,26 +16,40 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cuisine.api;
+package org.cuisine.api.dto;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
-import javax.validation.constraints.NotNull;
-
-import org.cuisine.api.dto.MenuGroupDTO;
-import org.cuisine.api.dto.OrderGroupDTO;
-import org.springframework.validation.annotation.Validated;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@Validated
-public interface OrderService {
+@ToString
+public class MenuDTO {
 
-	List<OrderGroupDTO> findWithShift(@NotNull final Integer shift);
+	@Getter @Setter
+	private Long id;
 	
-	void store(final List<OrderGroupDTO> orders);
+	@Getter @Setter
+	private String name;
 
-	List<MenuGroupDTO> getActualMenus();
+	@Getter @Setter
+	private BigDecimal price;
+
+	private Collection<FoodDTO> foods = new ArrayList<FoodDTO>();
+	
+	public void add(final FoodDTO food) {
+		foods.add(food);
+	}
+	
+	public Collection<FoodDTO> getFoods() {
+		return Collections.unmodifiableCollection(foods);
+	}
 }

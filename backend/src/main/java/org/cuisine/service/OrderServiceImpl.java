@@ -32,6 +32,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.cuisine.api.OrderService;
 import org.cuisine.api.dto.FoodDTO;
+import org.cuisine.api.dto.MenuDTO;
+import org.cuisine.api.dto.MenuGroupDTO;
 import org.cuisine.api.dto.OrderDTO;
 import org.cuisine.api.dto.OrderGroupDTO;
 import org.cuisine.entity.Food;
@@ -41,6 +43,7 @@ import org.cuisine.repository.MenuRepository;
 import org.cuisine.repository.OrderMenuRepository;
 import org.cuisine.repository.UserInformationRepository;
 import org.cuisine.utility.DTOConverter;
+import org.cuisine.utility.DateUtils;
 import org.cuisine.utility.SecurityUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,31 +76,31 @@ public class OrderServiceImpl implements OrderService {
 				SecurityUtil.getCurrentSignedInUsername(), dateOfFirstDayInWeek, dateOfLastDayInWeek);
  	    final List<Menu> menus = menuRepository.findMenuBetweenDates(dateOfFirstDayInWeek, dateOfLastDayInWeek);
 	    
-	    final List<OrderGroupDTO> ordersDTO = new ArrayList<OrderGroupDTO>(); 
+	    final List<OrderGroupDTO> orderGroupsDTO = new ArrayList<OrderGroupDTO>(); 
 	    
 	    for (final Menu menu : menus) {
-			OrderGroupDTO orderDTO = new OrderGroupDTO(menu.getForDate());
-	    	if (ordersDTO.contains(orderDTO)) {
-	    		orderDTO = ordersDTO.get(ordersDTO.indexOf(orderDTO));  
+			OrderGroupDTO orderGroupDTO = new OrderGroupDTO(menu.getForDate());
+	    	if (orderGroupsDTO.contains(orderGroupDTO)) {
+	    		orderGroupDTO = orderGroupsDTO.get(orderGroupsDTO.indexOf(orderGroupDTO));  
 	    	} else {
-	    		ordersDTO.add(orderDTO);
+	    		orderGroupsDTO.add(orderGroupDTO);
 	    	}
 			
-	        final OrderDTO menuDTO = new OrderDTO();
-	        menuDTO.setId(menu.getId());
-	        menuDTO.setName(menu.getName());
-	        menuDTO.setAmountAdult(0);
-	        menuDTO.setAmountChild(0);
-	        menuDTO.setPrice(menu.getPrice());
+	        final OrderDTO orderDTO = new OrderDTO();
+	        orderDTO.setId(menu.getId());
+	        orderDTO.setName(menu.getName());
+	        orderDTO.setAmountAdult(0);
+	        orderDTO.setAmountChild(0);
+	        orderDTO.setPrice(menu.getPrice());
 	        for (final Food food : menu.getFoods()) {	
-		        menuDTO.add(DTOConverter.convert(food, FoodDTO.class));
+		        orderDTO.add(DTOConverter.convert(food, FoodDTO.class));
 			}
-	        orderDTO.addOrder(menuDTO);
+	        orderGroupDTO.addOrder(orderDTO);
 		}
 
 		// update order menu
         for (final OrderMenu order : orders) {
-			for (final OrderGroupDTO orderDTO : ordersDTO) {
+			for (final OrderGroupDTO orderDTO : orderGroupsDTO) {
 				for (final OrderDTO menuDTO : orderDTO.getOrders()) {
 					if (orderDTO.getForDate().equals(order.getMenu().getForDate()) 
 						&& menuDTO.getId().equals(order.getMenu().getId())) {
@@ -108,7 +111,7 @@ public class OrderServiceImpl implements OrderService {
 			}			
 		}
 			    
-		return ordersDTO;
+		return orderGroupsDTO;
 	}
 
 	private Date getDateOfFirstDayInWeek(final Integer shift) {
@@ -193,5 +196,29 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		orderMenuRepository.save(userOrders);
+	}
+	
+	@Override
+	public List<MenuGroupDTO> getActualMenus() {
+ 	    final List<Menu> menus = menuRepository.findMenuFormDate(DateUtils.clearTime(new Date()));
+ 	    final List<MenuGroupDTO> menuGroupsDTO = new ArrayList<MenuGroupDTO>();
+	    for (final Menu menu : menus) {
+			MenuGroupDTO menuGroupDTO = new MenuGroupDTO(menu.getForDate());
+	    	if (menuGroupsDTO.contains(menuGroupDTO)) {
+	    		menuGroupDTO = menuGroupsDTO.get(menuGroupsDTO.indexOf(menuGroupDTO));  
+	    	} else {
+	    		menuGroupsDTO.add(menuGroupDTO);
+	    	}
+	    	
+	        final MenuDTO menuDTO = new MenuDTO();
+	    	menuDTO.setId(menu.getId());
+	    	menuDTO.setName(menu.getName());
+	    	menuDTO.setPrice(menu.getPrice());
+	        
+	        for (final Food food : menu.getFoods()) {	
+		        menuDTO.add(DTOConverter.convert(food, FoodDTO.class));
+			}
+	    }
+ 	    return menuGroupsDTO;
 	}
 }

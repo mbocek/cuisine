@@ -7,6 +7,7 @@ app.config([ '$routeProvider', function($routeProvider) {
 	.when('/login', { templateUrl : 'templates/user/login.html', controller : 'UserController' })
 	.when('/user', { templateUrl : 'templates/user/detail.html', controller : 'UserController' })
 	.when('/order', { templateUrl : 'templates/food/order.html', controller : 'OrderController' })
+	.when('/menu', { templateUrl : 'templates/food/menu.html', controller : 'OrderController' })
 	.otherwise({redirectTo : '/'});
 } ])
 .factory('authHttpResponseInterceptor',['$q','$location', '$log',function($q, $location, $log){

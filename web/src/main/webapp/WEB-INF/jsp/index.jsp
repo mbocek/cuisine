@@ -57,6 +57,9 @@
 							<li data-ng-hide="isLoggedIn" data-ng-class="{ active: isActive('/register')}">
 								<a href="<c:url value="#/register"/>">{{'_Signup_' | i18n}}</a>
 							</li>
+							<li data-ng-class="{ active: isActive('/order')}">
+								<a href="<c:url value="#/menu"/>">{{'_Menu_' | i18n}}</a>
+							</li>
 							<li data-ng-show="isLoggedIn" data-ng-class="{ active: isActive('/order')}">
 								<a href="<c:url value="#/order"/>">{{'_Order_' | i18n}}</a>
 							</li>

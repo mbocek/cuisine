@@ -16,26 +16,30 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cuisine.api;
+package org.cuisine.api.dto;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
-
-import org.cuisine.api.dto.MenuGroupDTO;
-import org.cuisine.api.dto.OrderGroupDTO;
-import org.springframework.validation.annotation.Validated;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@Validated
-public interface OrderService {
+@ToString
+public class MenuGroupDTO {
 
-	List<OrderGroupDTO> findWithShift(@NotNull final Integer shift);
+	@Getter @Setter
+	private Date forDate; 
 	
-	void store(final List<OrderGroupDTO> orders);
+	@Getter @Setter
+	private List<MenuDTO> menus = new ArrayList<MenuDTO>();
 
-	List<MenuGroupDTO> getActualMenus();
+	public MenuGroupDTO(final Date forDate) {
+		this.forDate = forDate;
+	}
 }

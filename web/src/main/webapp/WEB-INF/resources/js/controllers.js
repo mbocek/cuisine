@@ -65,10 +65,24 @@ controllers.controller('OrderController', [ '$rootScope', '$scope', '$http', 'or
    			};
    			
    			/**
+   			 * Load menu
+   			 */
+   			$scope.loadMenu = function() {
+   				$log.log("Loading menus");
+   				order.loadMenu( 
+   					function(data, status) {
+   						$log.log("Load menu data! data: %o, status: %o", data, status);
+						$scope.menuGroups = data;
+   					}, function(data, status) {
+   						$log.error("Menu data load error! data: %o, status: %o", data, status);
+   					});
+   			};
+   			
+   			/**
    			 * Store orders
    			 */
    			$scope.store = function() {
-   				$log.log("Loading orders");
+   				$log.log("Storing orders");
    				order.store($scope.orderGroups, 
    					function(data, status) {
    						$log.log("Store order data! data: %o, status: %o", data, status);

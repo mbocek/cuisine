@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 import org.cuisine.api.OrderService;
+import org.cuisine.api.dto.MenuGroupDTO;
 import org.cuisine.api.dto.OrderGroupDTO;
 import org.cuisine.controller.json.OrderList;
 import org.springframework.http.HttpStatus;
@@ -59,4 +60,9 @@ public class OrderController {
 		orderService.store(orders.getOrders());
 	}
 	
+	@ResponseStatus(value = HttpStatus.OK)
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody public List<MenuGroupDTO> getMenuGroups() {
+		return orderService.getActualMenus();
+	}
 }
