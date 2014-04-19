@@ -197,28 +197,4 @@ public class OrderServiceImpl implements OrderService {
 		
 		orderMenuRepository.save(userOrders);
 	}
-	
-	@Override
-	public List<MenuGroupDTO> getActualMenus() {
- 	    final List<Menu> menus = menuRepository.findMenuFormDate(DateUtils.clearTime(new Date()));
- 	    final List<MenuGroupDTO> menuGroupsDTO = new ArrayList<MenuGroupDTO>();
-	    for (final Menu menu : menus) {
-			MenuGroupDTO menuGroupDTO = new MenuGroupDTO(menu.getForDate());
-	    	if (menuGroupsDTO.contains(menuGroupDTO)) {
-	    		menuGroupDTO = menuGroupsDTO.get(menuGroupsDTO.indexOf(menuGroupDTO));  
-	    	} else {
-	    		menuGroupsDTO.add(menuGroupDTO);
-	    	}
-	    	
-	        final MenuDTO menuDTO = new MenuDTO();
-	    	menuDTO.setId(menu.getId());
-	    	menuDTO.setName(menu.getName());
-	    	menuDTO.setPrice(menu.getPrice());
-	        
-	        for (final Food food : menu.getFoods()) {	
-		        menuDTO.add(DTOConverter.convert(food, FoodDTO.class));
-			}
-	    }
- 	    return menuGroupsDTO;
-	}
 }

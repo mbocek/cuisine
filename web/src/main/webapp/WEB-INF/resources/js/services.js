@@ -32,15 +32,18 @@ services.service('order', ['$rootScope', '$http', '$log', function($rootScope, $
 		return $http.get($rootScope.appBasePath + "api/order", {params: {shift:shift}}).success(success).error(error);
 	};
 	
-	this.loadMenu = function(success, error) {
-		$log.debug("Load actual menu data", shift);
-		return $http.get($rootScope.appBasePath + "api/menu").success(success).error(error);
-	};
-	
 	this.store = function(orders, success, error) {
 		$log.debug("Store order data: %s", orders);
 		return $http.post($rootScope.appBasePath + "api/order", {orders: orders}).success(success).error(error);
 	};
 	
+}]);
+
+services.service('menu', ['$rootScope', '$http', '$log', function($rootScope, $http, $log) {
+
+	this.load = function(success, error) {
+		$log.debug("Load actual menu data");
+		return $http.get($rootScope.appBasePath + "api/menu").success(success).error(error);
+	};
 }]);
 

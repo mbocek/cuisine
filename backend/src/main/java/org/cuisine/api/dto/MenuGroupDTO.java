@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -31,6 +32,7 @@ import lombok.ToString;
  * @since 1.0.0
  */
 @ToString
+@EqualsAndHashCode(of = { "forDate" })
 public class MenuGroupDTO {
 
 	@Getter @Setter
@@ -41,5 +43,9 @@ public class MenuGroupDTO {
 
 	public MenuGroupDTO(final Date forDate) {
 		this.forDate = forDate;
+	}
+	
+	public void addMenu(final MenuDTO menuDTO) {
+		this.menus.add(menuDTO);
 	}
 }

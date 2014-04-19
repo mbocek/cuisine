@@ -16,37 +16,19 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.cuisine.api.dto;
+package org.cuisine.api;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
+import java.util.List;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import org.cuisine.api.dto.MenuGroupDTO;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * @author Michal Bocek
  * @since 1.0.0
  */
-@ToString
-@EqualsAndHashCode(of = { "forDate" })
-public class OrderGroupDTO {
+@Validated
+public interface MenuService {
 
-	@Getter @Setter
-	private Date forDate;
-	
-	@Getter @Setter
-	private Collection<OrderDTO> orders = new ArrayList<OrderDTO>();
-	
-	public OrderGroupDTO(final Date forDate) {
-		this.forDate = forDate;
-	}
-	
-	public void addOrder(final OrderDTO menuDTO) {
-		orders.add(menuDTO);
-	}
+	List<MenuGroupDTO> getActualMenus();
 }

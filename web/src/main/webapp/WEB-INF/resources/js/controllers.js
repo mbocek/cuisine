@@ -65,20 +65,6 @@ controllers.controller('OrderController', [ '$rootScope', '$scope', '$http', 'or
    			};
    			
    			/**
-   			 * Load menu
-   			 */
-   			$scope.loadMenu = function() {
-   				$log.log("Loading menus");
-   				order.loadMenu( 
-   					function(data, status) {
-   						$log.log("Load menu data! data: %o, status: %o", data, status);
-						$scope.menuGroups = data;
-   					}, function(data, status) {
-   						$log.error("Menu data load error! data: %o, status: %o", data, status);
-   					});
-   			};
-   			
-   			/**
    			 * Store orders
    			 */
    			$scope.store = function() {
@@ -93,6 +79,27 @@ controllers.controller('OrderController', [ '$rootScope', '$scope', '$http', 'or
    			};
    			
 		} ]);
+
+/**
+ * Menu controller.
+ */
+controllers.controller('MenuController', [ '$rootScope', '$scope', '$http', 'menu', '$log', '$location', 'localize',    
+   		function($rootScope, $scope, $http, menu, $log, $location, localize) {
+		
+		/**
+		 * Load menu
+		 */
+		$scope.load = function() {
+			$log.log("Loading menus");
+			menu.load(
+				function(data, status) {
+					$log.log("Load menu data! data: %o, status: %o", data, status);
+					$scope.menuGroups = data;
+				}, function(data, status) {
+					$log.error("Menu data load error! data: %o, status: %o", data, status);
+				});
+		};
+	} ]);
 
 /**
  * Header controller.

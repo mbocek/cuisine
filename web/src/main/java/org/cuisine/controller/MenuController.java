@@ -24,14 +24,11 @@ import javax.inject.Inject;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.cuisine.api.OrderService;
+import org.cuisine.api.MenuService;
 import org.cuisine.api.dto.MenuGroupDTO;
-import org.cuisine.api.dto.OrderGroupDTO;
-import org.cuisine.controller.json.OrderList;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,20 +40,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Slf4j
 @Controller
-@RequestMapping("/api/order")
-public class OrderController {
+@RequestMapping("/api/menu")
+public class MenuController {
 
 	@Inject
-	private OrderService orderService;
-	
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody public List<OrderGroupDTO> getOrders(final Integer shift) {
-		return orderService.findWithShift(shift);
-	}
-	
+	private MenuService menuService;
+
 	@ResponseStatus(value = HttpStatus.OK)
-	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public void store(@RequestBody final OrderList orders) {
-		orderService.store(orders.getOrders());
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody public List<MenuGroupDTO> getMenuGroups() {
+		return menuService.getActualMenus();
 	}
 }

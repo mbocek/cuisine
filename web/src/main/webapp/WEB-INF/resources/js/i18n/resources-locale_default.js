@@ -1,5 +1,10 @@
 [
 	{
+	    "key":"_Menu_",
+	    "value":"Menu",
+	    "description":""
+	},
+	{
 	    "key":"_STARTER_",
 	    "value":"Starter",
 	    "description":""
